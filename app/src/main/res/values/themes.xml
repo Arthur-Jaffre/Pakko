@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.Pakko" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
@@ -6,4 +6,13 @@
     </style>
 
     <style name="Theme.Pakko" parent="Base.Theme.Pakko" />
+
+    <style name="DefaultTextStyle">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="TitleTextStyle" parent="DefaultTextStyle">
+        <item name="android:textSize">24sp</item>
+    </style>
 </resources>
