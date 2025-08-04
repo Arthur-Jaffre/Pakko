@@ -7,4 +7,5 @@
     <color name="menu_color">#F9FAFB</color>
     <color name="light_gray">#72869A</color>
     <color name="shadow_color">#ECEEF0</color>
+    <color name="dark_white">#D5DDE3</color>
 </resources>

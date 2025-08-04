@@ -22,7 +22,7 @@
         android:id="@+id/fragment_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="85dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@id/navigation_view"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,9 +39,9 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation_view"
+        style="@style/CustomNavigationViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/menu_color"
         app:itemIconTint="@drawable/bottom_nav_color"
         app:itemTextColor="@drawable/bottom_nav_color"
         app:layout_constraintBottom_toBottomOf="parent"

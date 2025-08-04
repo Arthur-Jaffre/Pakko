@@ -3,4 +3,5 @@
     <string name="element_list">Elements</string>
     <string name="add_element">Ajouter</string>
     <string name="categories_list">Categories</string>
+    <string name="element">Element</string>
 </resources>

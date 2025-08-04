@@ -7,10 +7,12 @@ import fr.arthur.pakko.room.DAO.ElementCategorieDao
 import fr.arthur.pakko.room.DAO.ElementDao
 import fr.arthur.pakko.room.entities.CategorieEntity
 import fr.arthur.pakko.room.entities.ElementCategorieEntityCrossRef
+import fr.arthur.pakko.room.entities.ElementEntity
 
 @Database(
-    entities = [CategorieEntity::class, CategorieEntity::class, ElementCategorieEntityCrossRef::class],
-    version = 1
+    entities = [CategorieEntity::class, ElementEntity::class, ElementCategorieEntityCrossRef::class],
+    version = 1,
+    exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun categorieDao(): CategorieDao
