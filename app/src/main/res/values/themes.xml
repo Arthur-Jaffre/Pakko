@@ -13,6 +13,12 @@
         <item name="itemRippleColor">@android:color/transparent</item>
     </style>
 
+    <style name="CustomButton" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@null</item>
+        <item name="android:background">@drawable/button_background</item>
+        <item name="cornerRadius">8dp</item>
+    </style>
+
     <style name="DefaultTextStyle">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">18sp</item>

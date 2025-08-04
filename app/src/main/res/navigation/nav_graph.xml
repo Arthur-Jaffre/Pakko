@@ -21,5 +21,13 @@
 
     </fragment>
 
+    <!-- Fragment ajout d'élément -->
+    <fragment
+        android:id="@+id/addElementFragment"
+        android:name="fr.arthur.pakko.views.fragments.FragmentAddElement"
+        android:label="@string/add_element_2">
+
+    </fragment>
+
 
 </navigation>

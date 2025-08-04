@@ -9,4 +9,5 @@
     <color name="shadow_color">#ECEEF0</color>
     <color name="dark_white">#D5DDE3</color>
     <color name="button_background">#DCE8F3</color>
+    <color name="gray">#EAEDF1</color>
 </resources>
