@@ -4,69 +4,52 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import fr.arthur.pakko.R
 import fr.arthur.pakko.utils.appModule
-import fr.arthur.pakko.utils.replaceFragment
-import fr.arthur.pakko.views.fragments.FragmentCategories
 import org.koin.core.context.GlobalContext.startKoin
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var navController: androidx.navigation.NavController
+    private lateinit var pageTitle: TextView
+    private lateinit var navigationView: BottomNavigationView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
+        startDependencyInjection()
+        setupViews()
+        setupNavigation()
+        observeNavigationChanges()
+    }
+
+    private fun startDependencyInjection() {
         startKoin {
             modules(appModule)
         }
-
-        setupNavigation()
-        openCategoriesFragment()
     }
 
-    private fun loadFragment(fragment: Fragment, titleRes: Int) {
-        findViewById<TextView>(R.id.page_title).text = getString(titleRes)
-        this.replaceFragment(
-            fragment,
-            R.id.fragment_container
-        )
-    }
+    private fun setupViews() {
+        pageTitle = findViewById(R.id.page_title)
+        navigationView = findViewById(R.id.navigation_view)
 
-    private fun openCategoriesFragment() {
-        loadFragment(
-            FragmentCategories(),
-            R.string.categories_list
-        )
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+                as NavHostFragment
+        navController = navHostFragment.navController
     }
 
     private fun setupNavigation() {
-        findViewById<BottomNavigationView>(R.id.navigation_view).setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.menu_category -> {
-                    openCategoriesFragment()
-                    true
-                }
+        navigationView.setupWithNavController(navController)
+    }
 
-                R.id.menu_element_list -> {
-//                    loadFragment(
-//                        AddIngredientFragment(),
-//                        R.string.element_list
-//                    )
-                    true
-                }
-
-                R.id.menu_add_element -> {
-//                    loadFragment(
-//                        CollectionFragment(),
-//                        R.string.add_element
-//                    )
-                    true
-                }
-
-                else -> false
-            }
+    private fun observeNavigationChanges() {
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            pageTitle.text = destination.label
         }
     }
 }
