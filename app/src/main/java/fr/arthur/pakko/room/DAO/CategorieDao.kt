@@ -11,10 +11,10 @@ import fr.arthur.pakko.room.entities.CategorieEntity
 @Dao
 interface CategorieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(categorie: CategorieEntity)
+    suspend fun insert(categorie: CategorieEntity) // TODO : les noms des catégories doivent être uniques
 
     @Update
-    suspend fun update(categorie: CategorieEntity)
+    suspend fun update(categorie: CategorieEntity) // TODO : les noms des catégories doivent être uniques
 
     @Delete
     suspend fun delete(categorie: CategorieEntity)
