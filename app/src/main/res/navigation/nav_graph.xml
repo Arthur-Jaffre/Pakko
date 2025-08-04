@@ -10,55 +10,16 @@
         android:name="fr.arthur.pakko.views.fragments.FragmentCategories"
         android:label="@string/categories_list">
 
-        <!-- Popups modif/création catégorie -->
-        <!--        <action-->
-        <!--            android:id="@+id/action_to_modifyCategoryPopup"-->
-        <!--            app:destination="@id/modifyCategoryDialog" />-->
-        <!--        <action-->
-        <!--            android:id="@+id/action_to_createCategoryPopup"-->
-        <!--            app:destination="@id/createCategoryDialog" />-->
-
-        <!--        &lt;!&ndash; Vers liste éléments (sans changer menu) &ndash;&gt;-->
-        <!--        <action-->
-        <!--            android:id="@+id/action_to_elementListFragment"-->
-        <!--            app:destination="@id/elementListFragment" />-->
     </fragment>
 
-    <!-- Popups -->
-    <!--    <dialog-->
-    <!--        android:id="@+id/modifyCategoryDialog"-->
-    <!--        android:name="fr.arthur.pakko.views.dialogs.ModifyCategoryDialog"-->
-    <!--        android:label="Modifier catégorie" />-->
-    <!--    <dialog-->
-    <!--        android:id="@+id/createCategoryDialog"-->
-    <!--        android:name="fr.arthur.pakko.views.dialogs.CreateCategoryDialog"-->
-    <!--        android:label="Créer catégorie" />-->
 
     <!-- Fragment Liste des éléments -->
-    <!--    <fragment-->
-    <!--        android:id="@+id/elementListFragment"-->
-    <!--        android:name="fr.arthur.pakko.views.fragments.ElementListFragment"-->
-    <!--        android:label="@string/element_list">-->
+    <fragment
+        android:id="@+id/allElementsFragment"
+        android:name="fr.arthur.pakko.views.fragments.FragmentAllElements"
+        android:label="@string/element_list">
 
-    <!--        &lt;!&ndash; Vers ajout élément &ndash;&gt;-->
-    <!--        <action-->
-    <!--            android:id="@+id/action_to_addElementFragment"-->
-    <!--            app:destination="@id/addElementFragment" />-->
+    </fragment>
 
-    <!--        &lt;!&ndash; Popup(s) spécifiques à la liste élément &ndash;&gt;-->
-    <!--        <action-->
-    <!--            android:id="@+id/action_to_elementListPopup"-->
-    <!--            app:destination="@id/elementListPopupDialog" />-->
-    <!--    </fragment>-->
 
-    <!--    <dialog-->
-    <!--        android:id="@+id/elementListPopupDialog"-->
-    <!--        android:name="fr.arthur.pakko.views.dialogs.ElementListPopupDialog"-->
-    <!--        android:label="Popup Liste Éléments" />-->
-
-    <!--    &lt;!&ndash; Fragment Ajout élément &ndash;&gt;-->
-    <!--    <fragment-->
-    <!--        android:id="@+id/addElementFragment"-->
-    <!--        android:name="fr.arthur.pakko.views.fragments.AddElementFragment"-->
-    <!--        android:label="@string/add_element" />-->
 </navigation>

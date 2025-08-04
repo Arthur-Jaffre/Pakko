@@ -8,18 +8,19 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import fr.arthur.pakko.R
-import fr.arthur.pakko.adapters.CategoriesAdapter
-import fr.arthur.pakko.models.Category
+import fr.arthur.pakko.adapters.AllElementsAdapter
+import fr.arthur.pakko.models.Element
 
-class FragmentCategories : Fragment() {
+class FragmentAllElements : Fragment() {
+
     private lateinit var rootView: View
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: CategoriesAdapter
+    private lateinit var adapter: AllElementsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        rootView = inflater.inflate(R.layout.fragment_categories, container, false)
+        rootView = inflater.inflate(R.layout.fragment_all_elements, container, false)
 
         setupRecyclerView()
 
@@ -27,20 +28,19 @@ class FragmentCategories : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        recyclerView = rootView.findViewById(R.id.recycler_view_category)
+        recyclerView = rootView.findViewById(R.id.recycler_view_all_elements)
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-        adapter = CategoriesAdapter(
-            categories = mutableListOf(
-                Category(nom = "categorie1"),
-                Category(nom = "categorie2"),
-                Category(nom = "categorie3"),
-                Category(nom = "categorie4"),
-                Category(nom = "categorie5")
+        adapter = AllElementsAdapter(
+            elements = mutableListOf(
+                Element(nom = "element1"),
+                Element(nom = "element2"),
+                Element(nom = "element3"),
+                Element(nom = "element4"),
+                Element(nom = "element5")
             )
         )
 
         recyclerView.adapter = adapter
     }
-
 }

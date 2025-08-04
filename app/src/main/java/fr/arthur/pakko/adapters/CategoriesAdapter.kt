@@ -10,7 +10,6 @@ import fr.arthur.pakko.models.Category
 
 class CategoriesAdapter(
     private val categories: MutableList<Category>,
-    private val onCategoryChecked: suspend (Category) -> Unit
 ) : RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder>() {
 
     class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
