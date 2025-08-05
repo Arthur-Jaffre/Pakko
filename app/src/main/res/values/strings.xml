@@ -5,8 +5,10 @@
     <string name="add_element_2">Ajouter un élément</string>
     <string name="categories_list">Categories</string>
     <string name="element">Element</string>
-    <string name="button_delete_element">Supprimer</string>
+    <string name="button_delete">Supprimer</string>
     <string name="button_save_element">Sauvegarder</string>
     <string name="element_name_edit_text">Nom de l\'élément</string>
     <string name="category">categorie</string>
+    <string name="popup_title_edit_category">Créer une catégorie</string>
+    <string name="category_name_edit_text">Nom de la catégorie</string>
 </resources>

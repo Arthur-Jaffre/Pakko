@@ -14,7 +14,7 @@
         android:hint="@string/element_name_edit_text"
         android:inputType="textCapWords"
         android:paddingHorizontal="12dp"
-        android:textColor="@android:color/black"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +26,7 @@
         android:layout_marginTop="8dp"
         android:paddingTop="@dimen/default_margin"
         android:text="@string/categories_list"
-        android:textColor="@android:color/black"
+        android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edit_element_input" />
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="50dp"
             android:layout_weight="1"
-            android:text="@string/button_delete_element"
+            android:text="@string/button_delete"
             android:textColor="@color/black"
             android:visibility="gone" />
 
