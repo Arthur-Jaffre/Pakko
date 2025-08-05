@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import fr.arthur.pakko.R
@@ -49,10 +50,20 @@ class FragmentCategories : Fragment() {
                 Category(nom = "categorie3"),
                 Category(nom = "categorie4"),
                 Category(nom = "categorie5")
-            )
+            ),
+            onCategoryClick = { category ->
+                openElementsByCategoryFragment(category)
+            }
         )
 
         recyclerView.adapter = adapter
+    }
+
+    private fun openElementsByCategoryFragment(category: Category) {
+        findNavController().navigate(
+            R.id.ElementByCategoryFragment,
+            Bundle().apply { putSerializable("category", category) }
+        )
     }
 
 }

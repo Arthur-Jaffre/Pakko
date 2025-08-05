@@ -27,11 +27,10 @@
         android:text="@string/element"
         android:textSize="15sp" />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/item_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/main_background"
-        android:src="@drawable/ic_arrow_down"
+        android:src="@drawable/ic_arrow_right"
         app:tint="@color/black" />
 </LinearLayout>

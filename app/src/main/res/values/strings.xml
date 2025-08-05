@@ -11,4 +11,5 @@
     <string name="category">categorie</string>
     <string name="popup_title_edit_category">Créer une catégorie</string>
     <string name="category_name_edit_text">Nom de la catégorie</string>
+    <string name="element_comment">commentaire</string>
 </resources>
