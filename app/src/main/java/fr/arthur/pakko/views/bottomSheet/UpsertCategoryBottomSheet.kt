@@ -45,8 +45,5 @@ class UpsertCategoryBottomSheet : BottomSheetDialogFragment() {
         }
     }
 
-    override fun getTheme(): Int {
-        return com.google.android.material.R.style.Theme_Material3_Light_BottomSheetDialog
-    }
 
 }

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import fr.arthur.pakko.R
 import fr.arthur.pakko.adapters.AllElementsAdapter
 import fr.arthur.pakko.models.Element
+import fr.arthur.pakko.views.bottomSheet.AddToCategoriesBottomSheet
 
 class FragmentAllElements : Fragment() {
 
@@ -38,9 +39,18 @@ class FragmentAllElements : Fragment() {
                 Element(nom = "element3"),
                 Element(nom = "element4"),
                 Element(nom = "element5")
-            )
+            ),
+            onElementClick = { element ->
+                openChoiceCategoriesBottomSheet(element)
+            }
         )
 
         recyclerView.adapter = adapter
+    }
+
+    private fun openChoiceCategoriesBottomSheet(element: Element) {
+        val bottomSheet = AddToCategoriesBottomSheet()
+        bottomSheet.element = element
+        bottomSheet.show(parentFragmentManager, "AddToCategories")
     }
 }
