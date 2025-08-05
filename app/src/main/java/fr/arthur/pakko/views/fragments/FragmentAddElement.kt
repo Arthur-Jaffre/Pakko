@@ -38,8 +38,15 @@ class FragmentAddElement : Fragment() {
         currentElement = arguments?.getSerializable("element") as? Element
         editText = rootView.findViewById(R.id.edit_element_input)
         editText.setText(currentElement?.nom ?: "")
-        
+
         buttonDelete = rootView.findViewById(R.id.button_delete)
+        if (currentElement != null) {
+            buttonDelete.visibility = View.VISIBLE
+            buttonDelete.setOnClickListener {
+                // TODO : supprimer l'élément
+            }
+        }
+
         buttonSave = rootView.findViewById(R.id.button_save)
     }
 
