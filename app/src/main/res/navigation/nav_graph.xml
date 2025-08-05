@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/nav_categories">
+
+    <!-- Sous-graphe catégories -->
+    <navigation
+        android:id="@+id/nav_categories"
+        app:startDestination="@id/categoriesFragment">
+
+        <fragment
+            android:id="@+id/categoriesFragment"
+            android:name="fr.arthur.pakko.views.fragments.FragmentCategories"
+            android:label="@string/categories_list" />
+
+        <fragment
+            android:id="@+id/ElementByCategoryFragment"
+            android:name="fr.arthur.pakko.views.fragments.FragmentElementsByCategories"
+            android:label="@string/categories_list" />
+    </navigation>
+
+    <!-- Fragment Liste des éléments -->
+    <fragment
+        android:id="@+id/allElementsFragment"
+        android:name="fr.arthur.pakko.views.fragments.FragmentAllElements"
+        android:label="@string/element_list" />
+
+    <!-- Fragment ajout d'élément -->
+    <fragment
+        android:id="@+id/addElementFragment"
+        android:name="fr.arthur.pakko.views.fragments.FragmentAddElement"
+        android:label="@string/add_element_2" />
+
+</navigation>

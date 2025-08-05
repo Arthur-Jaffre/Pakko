@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Pakko</string>
+    <string name="element_list">Elements</string>
+    <string name="add_element">Ajouter</string>
+    <string name="add_element_2">Ajouter un élément</string>
+    <string name="categories_list">Categories</string>
+    <string name="element">Element</string>
+    <string name="button_delete">Supprimer</string>
+    <string name="button_save_element">Sauvegarder</string>
+    <string name="element_name_edit_text">Nom de l\'élément</string>
+    <string name="category">categorie</string>
+    <string name="popup_title_edit_category">Créer une catégorie</string>
+    <string name="category_name_edit_text">Nom de la catégorie</string>
+    <string name="element_comment">commentaire</string>
+    <string name="remove_from_category">Supprimer de la catégorie</string>
+    <string name="edit_item">Modifier l\'élément</string>
+    <string name="modify_element_comment_edit_text">Modifier le commentaire</string>
+    <string name="popup_title_add_element_to_categories">Ajouter à des catégories</string>
 </resources>
