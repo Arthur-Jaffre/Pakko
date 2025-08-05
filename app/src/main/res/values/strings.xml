@@ -9,7 +9,8 @@
     <string name="button_save_element">Sauvegarder</string>
     <string name="element_name_edit_text">Nom de l\'élément</string>
     <string name="category">categorie</string>
-    <string name="popup_title_edit_category">Créer une catégorie</string>
+    <string name="popup_title_create_category">Créer une catégorie</string>
+    <string name="popup_title_edit_category">Modifier une catégorie</string>
     <string name="category_name_edit_text">Nom de la catégorie</string>
     <string name="element_comment">commentaire</string>
     <string name="remove_from_category">Supprimer de la catégorie</string>

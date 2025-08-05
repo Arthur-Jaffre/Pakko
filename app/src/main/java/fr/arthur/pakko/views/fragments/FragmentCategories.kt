@@ -53,6 +53,9 @@ class FragmentCategories : Fragment() {
             ),
             onCategoryClick = { category ->
                 openElementsByCategoryFragment(category)
+            },
+            onCategoryModifyClick = { category ->
+                openUpsertCategory(category)
             }
         )
 
@@ -64,6 +67,12 @@ class FragmentCategories : Fragment() {
             R.id.ElementByCategoryFragment,
             Bundle().apply { putSerializable("category", category) }
         )
+    }
+
+    private fun openUpsertCategory(category: Category) {
+        val bottomSheet = UpsertCategoryBottomSheet()
+        bottomSheet.itemCategory = category
+        bottomSheet.show(parentFragmentManager, "UpsertCategory")
     }
 
 }

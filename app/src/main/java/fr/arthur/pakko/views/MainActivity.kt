@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import fr.arthur.pakko.R
@@ -12,7 +13,7 @@ import org.koin.core.context.GlobalContext.startKoin
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var navController: androidx.navigation.NavController
+    private lateinit var navController: NavController
     private lateinit var pageTitle: TextView
     private lateinit var navigationView: BottomNavigationView
 
