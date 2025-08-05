@@ -14,6 +14,7 @@ import fr.arthur.pakko.R
 import fr.arthur.pakko.adapters.ElementsByCategoriesAdapter
 import fr.arthur.pakko.models.Category
 import fr.arthur.pakko.models.Element
+import fr.arthur.pakko.views.bottomSheet.ModifyElementBottomSheet
 
 class FragmentElementsByCategories : Fragment() {
     private lateinit var rootView: View
@@ -56,9 +57,19 @@ class FragmentElementsByCategories : Fragment() {
                 Element(nom = "element3"),
                 Element(nom = "element4"),
                 Element(nom = "element5")
-            )
+            ),
+            onElementClick = { element ->
+                // afficher le popup de modification de l'élément
+                openModifyElementBottomSheet(element)
+            }
         )
 
         recyclerView.adapter = adapter
+    }
+
+    private fun openModifyElementBottomSheet(element: Element) {
+        val bottomSheet = ModifyElementBottomSheet()
+        bottomSheet.element = element
+        bottomSheet.show(parentFragmentManager, "ModifyElement")
     }
 }

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import fr.arthur.pakko.R
 import fr.arthur.pakko.adapters.AllCategoriesAdapter
 import fr.arthur.pakko.models.Category
+import fr.arthur.pakko.models.Element
 
 class FragmentAddElement : Fragment() {
     private lateinit var rootView: View
@@ -20,6 +21,7 @@ class FragmentAddElement : Fragment() {
     private lateinit var buttonDelete: Button
     private lateinit var buttonSave: Button
     private lateinit var adapter: AllCategoriesAdapter
+    private var currentElement: Element? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -33,7 +35,10 @@ class FragmentAddElement : Fragment() {
     }
 
     private fun setupComponents() {
+        currentElement = arguments?.getSerializable("element") as? Element
         editText = rootView.findViewById(R.id.edit_element_input)
+        editText.setText(currentElement?.nom ?: "")
+        
         buttonDelete = rootView.findViewById(R.id.button_delete)
         buttonSave = rootView.findViewById(R.id.button_save)
     }

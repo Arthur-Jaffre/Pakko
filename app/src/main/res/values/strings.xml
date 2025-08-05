@@ -12,4 +12,7 @@
     <string name="popup_title_edit_category">Créer une catégorie</string>
     <string name="category_name_edit_text">Nom de la catégorie</string>
     <string name="element_comment">commentaire</string>
+    <string name="remove_from_category">Supprimer de la catégorie</string>
+    <string name="edit_item">Modifier l\'élément</string>
+    <string name="modify_element_comment_edit_text">Modifier le commentaire</string>
 </resources>

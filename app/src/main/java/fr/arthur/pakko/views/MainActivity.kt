@@ -5,7 +5,6 @@ import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import fr.arthur.pakko.R
 import fr.arthur.pakko.utils.appModule
@@ -44,7 +43,36 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupNavigation() {
-        navigationView.setupWithNavController(navController)
+        navigationView.setOnItemSelectedListener { item ->
+            val handled = when (item.itemId) {
+                R.id.nav_categories -> {
+                    navController.popBackStack(R.id.categoriesFragment, false)
+                    true
+                }
+
+                R.id.allElementsFragment -> {
+                    navController.popBackStack(R.id.allElementsFragment, false)
+                    true
+                }
+
+                R.id.addElementFragment -> {
+                    navController.popBackStack(R.id.addElementFragment, false)
+                    true
+                }
+
+                else -> false
+            }
+
+            if (handled) {
+                navController.navigate(item.itemId)
+            }
+
+            handled
+        }
+    }
+
+    fun highlightMenuItem(itemId: Int) {
+        navigationView.menu.findItem(itemId)?.isChecked = true
     }
 
     private fun observeNavigationChanges() {
