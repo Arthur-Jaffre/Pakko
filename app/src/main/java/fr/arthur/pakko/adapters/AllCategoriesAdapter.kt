@@ -9,8 +9,8 @@ import fr.arthur.pakko.R
 import fr.arthur.pakko.models.Category
 
 class AllCategoriesAdapter(
-    private val elements: MutableList<Category>,
 ) : RecyclerView.Adapter<AllCategoriesAdapter.AllCategoriesViewHolder>() {
+    private val categories = mutableListOf<Category>()
 
     class AllCategoriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val itemTitle: TextView = itemView.findViewById(R.id.item_title)
@@ -23,10 +23,16 @@ class AllCategoriesAdapter(
         )
     }
 
-    override fun getItemCount(): Int = elements.size
+    override fun getItemCount(): Int = categories.size
 
     override fun onBindViewHolder(holder: AllCategoriesViewHolder, position: Int) {
-        val element = elements[position]
+        val element = categories[position]
         holder.itemTitle.text = element.nom
+    }
+
+    fun submitList(newItems: List<Category>) {
+        categories.clear()
+        categories.addAll(newItems)
+        notifyDataSetChanged()
     }
 }

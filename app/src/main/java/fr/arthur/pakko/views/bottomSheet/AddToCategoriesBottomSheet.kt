@@ -32,15 +32,9 @@ class AddToCategoriesBottomSheet : BottomSheetDialogFragment() {
     private fun initComponent(view: View) {
         categoriesRecyclerView = view.findViewById(R.id.categories_recycler_view)
         categoriesRecyclerView.layoutManager = LinearLayoutManager(context)
-        categoriesAdapter = AllCategoriesAdapter(
-            mutableListOf(
-                Category(nom = "categorie1"),
-                Category(nom = "categorie2"),
-                Category(nom = "categorie3"),
-                Category(nom = "categorie4"),
-                Category(nom = "categorie5")
-            )
-        )
+        categoriesAdapter = AllCategoriesAdapter()
+        categoriesAdapter.submitList(listOf(Category("Catégorie 1"), Category("Catégorie 2")))
+        // TODO : ajouter les catégories existantes
         categoriesRecyclerView.adapter = categoriesAdapter
     }
 }

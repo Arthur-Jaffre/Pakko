@@ -11,8 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import fr.arthur.pakko.R
 import fr.arthur.pakko.adapters.AllCategoriesAdapter
-import fr.arthur.pakko.models.Category
 import fr.arthur.pakko.models.Element
+import fr.arthur.pakko.viewmodel.CategoryViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentAddElement : Fragment() {
     private lateinit var rootView: View
@@ -22,6 +23,7 @@ class FragmentAddElement : Fragment() {
     private lateinit var buttonSave: Button
     private lateinit var adapter: AllCategoriesAdapter
     private var currentElement: Element? = null
+    private val categoryViewModel: CategoryViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -54,15 +56,11 @@ class FragmentAddElement : Fragment() {
         recyclerView = rootView.findViewById(R.id.recycler_view_all_category)
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-        adapter = AllCategoriesAdapter(
-            elements = mutableListOf(
-                Category(nom = "categorie1"),
-                Category(nom = "categorie2"),
-                Category(nom = "categorie3"),
-                Category(nom = "categorie4"),
-                Category(nom = "categorie5")
-            )
-        )
+        adapter = AllCategoriesAdapter()
+        categoryViewModel.categories.observe(viewLifecycleOwner) {
+            adapter.submitList(it.toList())
+        }
+        categoryViewModel.getAllCategories()
 
         recyclerView.adapter = adapter
     }
