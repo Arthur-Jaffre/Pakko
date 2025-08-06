@@ -10,10 +10,10 @@ import fr.arthur.pakko.R
 import fr.arthur.pakko.models.Category
 
 class CategoriesAdapter(
-    private val categories: MutableList<Category>,
     private val onCategoryClick: (Category) -> Unit,
     private val onCategoryModifyClick: (Category) -> Unit
 ) : RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder>() {
+    private val categories = mutableListOf<Category>()
 
     class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val itemTitle: TextView = itemView.findViewById(R.id.item_title)
@@ -39,5 +39,11 @@ class CategoriesAdapter(
         holder.itemView.setOnClickListener {
             onCategoryClick(category)
         }
+    }
+
+    fun submitList(newItems: List<Category>) {
+        categories.clear()
+        categories.addAll(newItems)
+        notifyDataSetChanged()
     }
 }

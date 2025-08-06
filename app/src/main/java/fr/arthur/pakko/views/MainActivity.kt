@@ -9,6 +9,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import fr.arthur.pakko.R
 import fr.arthur.pakko.utils.appModule
+import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext.startKoin
 
 class MainActivity : AppCompatActivity() {
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun startDependencyInjection() {
         startKoin {
+            androidContext(this@MainActivity)
             modules(appModule)
         }
     }

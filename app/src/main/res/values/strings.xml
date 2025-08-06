@@ -17,4 +17,6 @@
     <string name="edit_item">Modifier l\'élément</string>
     <string name="modify_element_comment_edit_text">Modifier le commentaire</string>
     <string name="popup_title_add_element_to_categories">Ajouter à des catégories</string>
+    <string name="unknown_error">Erreur inconnue</string>
+    <string name="category_name_already_used">Nom de catégorie déjà utilisé.</string>
 </resources>

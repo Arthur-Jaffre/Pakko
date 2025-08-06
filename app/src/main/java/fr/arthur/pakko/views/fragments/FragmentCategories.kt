@@ -12,13 +12,16 @@ import androidx.recyclerview.widget.RecyclerView
 import fr.arthur.pakko.R
 import fr.arthur.pakko.adapters.CategoriesAdapter
 import fr.arthur.pakko.models.Category
+import fr.arthur.pakko.viewmodel.CategoryViewModel
 import fr.arthur.pakko.views.bottomSheet.UpsertCategoryBottomSheet
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class FragmentCategories : Fragment() {
     private lateinit var rootView: View
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CategoriesAdapter
     private lateinit var addCategoryButton: ImageButton
+    private val categoryViewModel: CategoryViewModel by activityViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -35,7 +38,7 @@ class FragmentCategories : Fragment() {
         addCategoryButton = rootView.findViewById(R.id.add_category_button)
         addCategoryButton.setOnClickListener {
             val bottomSheet = UpsertCategoryBottomSheet()
-            bottomSheet.show(parentFragmentManager, "UpsertCategory")
+            bottomSheet.show(childFragmentManager, "UpsertCategory")
         }
     }
 
@@ -44,13 +47,6 @@ class FragmentCategories : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         adapter = CategoriesAdapter(
-            categories = mutableListOf(
-                Category(nom = "categorie1"),
-                Category(nom = "categorie2"),
-                Category(nom = "categorie3"),
-                Category(nom = "categorie4"),
-                Category(nom = "categorie5")
-            ),
             onCategoryClick = { category ->
                 openElementsByCategoryFragment(category)
             },
@@ -58,6 +54,11 @@ class FragmentCategories : Fragment() {
                 openUpsertCategory(category)
             }
         )
+
+        categoryViewModel.categories.observe(viewLifecycleOwner) {
+            adapter.submitList(it.toList())
+        }
+        categoryViewModel.getAllCategories()
 
         recyclerView.adapter = adapter
     }
@@ -72,7 +73,7 @@ class FragmentCategories : Fragment() {
     private fun openUpsertCategory(category: Category) {
         val bottomSheet = UpsertCategoryBottomSheet()
         bottomSheet.itemCategory = category
-        bottomSheet.show(parentFragmentManager, "UpsertCategory")
+        bottomSheet.show(childFragmentManager, "UpsertCategory")
     }
 
 }
