@@ -26,7 +26,6 @@ val appModule = module {
     }
 
     single { get<AppDatabase>().categorieDao() }
-    single { get<AppDatabase>().elementCategorieDao() }
     single { get<AppDatabase>().elementDao() }
 
     single { CategoryRepository(get()) }

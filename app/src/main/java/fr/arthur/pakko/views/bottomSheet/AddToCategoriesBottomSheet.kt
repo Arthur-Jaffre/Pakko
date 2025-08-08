@@ -36,7 +36,9 @@ class AddToCategoriesBottomSheet : BottomSheetDialogFragment() {
     private fun initComponent(view: View) {
         categoriesRecyclerView = view.findViewById(R.id.categories_recycler_view)
         categoriesRecyclerView.layoutManager = LinearLayoutManager(context)
-        categoriesAdapter = AllCategoriesAdapter()
+        categoriesAdapter = AllCategoriesAdapter(
+            onElementChecked = { categoryUi -> onElementChecked(categoryUi) }
+        )
         categoriesRecyclerView.adapter = categoriesAdapter
 
         // Observer les deux flux en parallèle
@@ -51,6 +53,10 @@ class AddToCategoriesBottomSheet : BottomSheetDialogFragment() {
         // Lancer les chargements
         categoryViewModel.getCategoriesForElement(element.id)
         categoryViewModel.getAllCategories()
+    }
+
+    private fun onElementChecked(categoryUi: CategorieUi) {
+        categoryViewModel.updateElementCategory(categoryUi, element.id)
     }
 
     /**
@@ -72,7 +78,7 @@ class AddToCategoriesBottomSheet : BottomSheetDialogFragment() {
         if (allCategories == null || associated == null) return
 
         val updatedUi = allCategories.map { category ->
-            CategorieUi(category, isSelected = associated.any { it.id == category.id })
+            CategorieUi(category, coche = associated.any { it.id == category.id })
         }
         categoriesAdapter.submitList(updatedUi)
     }

@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import fr.arthur.pakko.room.entities.CategorieEntity
+import fr.arthur.pakko.room.entities.ElementCategorieEntityCrossRef
 
 @Dao
 interface CategorieDao {
@@ -30,4 +31,15 @@ interface CategorieDao {
     """
     )
     suspend fun getCategoriesForElement(elementId: String): List<CategorieEntity>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertOrUpdateElementCategoryCrossRef(crossRef: ElementCategorieEntityCrossRef)
+
+    @Query(
+        """
+    DELETE FROM elements_categories
+    WHERE element_id = :elementId AND categorie_id = :categoryId
+    """
+    )
+    suspend fun deleteElementCategoryCrossRef(elementId: String, categoryId: String)
 }

@@ -12,6 +12,7 @@ import fr.arthur.pakko.room.entities.ElementCategorieEntityCrossRef
 import fr.arthur.pakko.utils.toElementCategorieEntityCrossRef
 
 class AllCategoriesAdapter(
+    private val onElementChecked: ((CategorieUi) -> Unit)? = null
 ) : RecyclerView.Adapter<AllCategoriesAdapter.AllCategoriesViewHolder>() {
     private val categoriesUi = mutableListOf<CategorieUi>()
 
@@ -33,9 +34,10 @@ class AllCategoriesAdapter(
         val item = categoriesUi[position]
         holder.itemTitle.text = item.category.nom
         holder.checkBox.setOnCheckedChangeListener(null)
-        holder.checkBox.isChecked = item.isSelected
+        holder.checkBox.isChecked = item.coche
         holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
-            item.isSelected = isChecked
+            item.coche = isChecked
+            onElementChecked?.invoke(item)
         }
     }
 
@@ -47,7 +49,7 @@ class AllCategoriesAdapter(
 
     fun getSelectedCrossRefs(elementId: String): List<ElementCategorieEntityCrossRef> {
         return categoriesUi
-            .filter { it.isSelected }
+            .filter { it.coche }
             .map { it.toElementCategorieEntityCrossRef(elementId) }
     }
 }

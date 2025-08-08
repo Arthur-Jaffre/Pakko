@@ -79,7 +79,7 @@ class FragmentAddElement : Fragment() {
         categoryViewModel.categories.observe(viewLifecycleOwner) {
             adapter.submitList(it.toList().map { category -> category.toCategorieUi() })
         }
-        // TODO : cocher les catégories associées à l'élément
+        // TODO : cocher les catégories associées à l'élément quand modification
 
         categoryViewModel.getAllCategories()
 

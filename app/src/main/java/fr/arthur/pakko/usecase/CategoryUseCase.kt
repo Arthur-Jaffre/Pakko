@@ -2,8 +2,10 @@ package fr.arthur.pakko.usecase
 
 import androidx.room.Transaction
 import fr.arthur.pakko.exceptions.CategoryNameAlreadyUsedException
+import fr.arthur.pakko.models.CategorieUi
 import fr.arthur.pakko.models.Category
 import fr.arthur.pakko.repositories.CategoryRepository
+import fr.arthur.pakko.room.entities.ElementCategorieEntityCrossRef
 
 class CategoryUseCase(
     private val categoryRepository: CategoryRepository
@@ -46,6 +48,23 @@ class CategoryUseCase(
 
     suspend fun getCategoriesForElement(elementId: String): List<Category> {
         return categoryRepository.getCategoriesForElement(elementId)
+    }
+
+    suspend fun updateElementCategory(categoryUI: CategorieUi, elementId: String) {
+        if (categoryUI.coche) {
+            // Ajout ou mise à jour
+            categoryRepository.insertOrUpdateCrossRef(
+                ElementCategorieEntityCrossRef(
+                    element_id = elementId,
+                    categorie_id = categoryUI.category.id,
+                    commentaire = categoryUI.comment,
+                    coche = true
+                )
+            )
+        } else {
+            // Suppression
+            categoryRepository.deleteElementCategoryCrossRef(elementId, categoryUI.category.id)
+        }
     }
 
 

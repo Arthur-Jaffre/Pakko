@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import fr.arthur.pakko.models.CategorieUi
 import fr.arthur.pakko.models.Category
 import fr.arthur.pakko.usecase.CategoryUseCase
 import kotlinx.coroutines.launch
@@ -60,6 +61,12 @@ class CategoryViewModel(
     fun getCategoriesForElement(elementId: String) {
         viewModelScope.launch {
             _categoriesForElement.postValue(categoryUseCase.getCategoriesForElement(elementId))
+        }
+    }
+
+    fun updateElementCategory(categoryUI: CategorieUi, elementId: String) {
+        viewModelScope.launch {
+            categoryUseCase.updateElementCategory(categoryUI, elementId)
         }
     }
 }

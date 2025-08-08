@@ -48,6 +48,6 @@ fun CategorieUi.toElementCategorieEntityCrossRef(elementId: String): ElementCate
 fun Category.toCategorieUi(isSelected: Boolean = false): CategorieUi {
     return CategorieUi(
         category = this,
-        isSelected = isSelected
+        coche = isSelected
     )
 }
