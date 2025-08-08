@@ -10,13 +10,16 @@ import androidx.recyclerview.widget.RecyclerView
 import fr.arthur.pakko.R
 import fr.arthur.pakko.adapters.AllElementsAdapter
 import fr.arthur.pakko.models.Element
+import fr.arthur.pakko.viewmodel.ElementViewModel
 import fr.arthur.pakko.views.bottomSheet.AddToCategoriesBottomSheet
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class FragmentAllElements : Fragment() {
 
     private lateinit var rootView: View
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AllElementsAdapter
+    private val elementViewModel: ElementViewModel by activityViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -33,17 +36,15 @@ class FragmentAllElements : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         adapter = AllElementsAdapter(
-            elements = mutableListOf(
-                Element(nom = "element1"),
-                Element(nom = "element2"),
-                Element(nom = "element3"),
-                Element(nom = "element4"),
-                Element(nom = "element5")
-            ),
             onElementClick = { element ->
                 openChoiceCategoriesBottomSheet(element)
             }
         )
+
+        elementViewModel.elements.observe(viewLifecycleOwner) {
+            adapter.submitList(it.toList())
+        }
+        elementViewModel.getAllElements()
 
         recyclerView.adapter = adapter
     }

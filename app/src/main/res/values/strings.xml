@@ -19,4 +19,5 @@
     <string name="popup_title_add_element_to_categories">Ajouter à des catégories</string>
     <string name="unknown_error">Erreur inconnue</string>
     <string name="category_name_already_used">Nom de catégorie déjà utilisé.</string>
+    <string name="element_saved">Élement enregistré</string>
 </resources>

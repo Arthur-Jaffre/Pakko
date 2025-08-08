@@ -66,7 +66,7 @@ class FragmentAddElement : Fragment() {
                 element,
                 adapter.getSelectedCrossRefs(element.id)
             )
-            Toast.makeText(context, "Element enregistré", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.element_saved), Toast.LENGTH_SHORT).show()
         }
     }
 

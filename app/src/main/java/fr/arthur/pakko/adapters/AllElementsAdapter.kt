@@ -10,13 +10,19 @@ import fr.arthur.pakko.R
 import fr.arthur.pakko.models.Element
 
 class AllElementsAdapter(
-    private val elements: MutableList<Element>,
     private val onElementClick: (Element) -> Unit
 ) : RecyclerView.Adapter<AllElementsAdapter.AllElementsViewHolder>() {
+    private val elements = mutableListOf<Element>()
 
     class AllElementsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val itemTitle: TextView = itemView.findViewById(R.id.item_title)
         val itemButton: ImageButton = itemView.findViewById(R.id.item_button)
+    }
+
+    fun submitList(newItems: List<Element>) {
+        elements.clear()
+        elements.addAll(newItems)
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllElementsViewHolder {
