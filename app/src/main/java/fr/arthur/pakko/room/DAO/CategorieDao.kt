@@ -21,4 +21,13 @@ interface CategorieDao {
 
     @Query("SELECT * FROM categories ORDER BY nom")
     suspend fun getAll(): List<CategorieEntity>
+
+    @Query(
+        """
+    SELECT c.* FROM categories c
+    INNER JOIN elements_categories ec ON ec.categorie_id = c.id
+    WHERE ec.element_id = :elementId
+    """
+    )
+    suspend fun getCategoriesForElement(elementId: String): List<CategorieEntity>
 }

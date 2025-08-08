@@ -13,6 +13,9 @@ class CategoryViewModel(
 ) : ViewModel() {
     private val _categories = MutableLiveData<List<Category>>()
     val categories: LiveData<List<Category>> = _categories
+
+    private val _categoriesForElement = MutableLiveData<List<Category>>()
+    val categoriesForElement: LiveData<List<Category>> = _categoriesForElement
     private val _error = MutableLiveData<Throwable?>()
     val error: LiveData<Throwable?> = _error
 
@@ -51,6 +54,12 @@ class CategoryViewModel(
                 _error.value = e
             }
 
+        }
+    }
+
+    fun getCategoriesForElement(elementId: String) {
+        viewModelScope.launch {
+            _categoriesForElement.postValue(categoryUseCase.getCategoriesForElement(elementId))
         }
     }
 }

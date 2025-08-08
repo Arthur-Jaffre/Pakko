@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import fr.arthur.pakko.R
 import fr.arthur.pakko.adapters.AllCategoriesAdapter
 import fr.arthur.pakko.models.Element
+import fr.arthur.pakko.utils.toCategorieUi
 import fr.arthur.pakko.viewmodel.CategoryViewModel
 import fr.arthur.pakko.viewmodel.ElementViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -76,8 +77,10 @@ class FragmentAddElement : Fragment() {
 
         adapter = AllCategoriesAdapter()
         categoryViewModel.categories.observe(viewLifecycleOwner) {
-            adapter.submitList(it.toList())
+            adapter.submitList(it.toList().map { category -> category.toCategorieUi() })
         }
+        // TODO : cocher les catégories associées à l'élément
+
         categoryViewModel.getAllCategories()
 
         recyclerView.adapter = adapter

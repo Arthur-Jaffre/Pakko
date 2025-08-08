@@ -23,4 +23,8 @@ class CategoryRepository(
     suspend fun deleteCategory(category: Category) {
         categorieDao.delete(category.toCategorieEntity())
     }
+
+    suspend fun getCategoriesForElement(elementId: String): List<Category> {
+        return categorieDao.getCategoriesForElement(elementId).map { it.toCategory() }
+    }
 }

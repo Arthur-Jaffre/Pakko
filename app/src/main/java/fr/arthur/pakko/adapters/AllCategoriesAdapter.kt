@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import fr.arthur.pakko.R
 import fr.arthur.pakko.models.CategorieUi
-import fr.arthur.pakko.models.Category
 import fr.arthur.pakko.room.entities.ElementCategorieEntityCrossRef
 import fr.arthur.pakko.utils.toElementCategorieEntityCrossRef
 
@@ -40,9 +39,9 @@ class AllCategoriesAdapter(
         }
     }
 
-    fun submitList(newItems: List<Category>) {
+    fun submitList(newItems: List<CategorieUi>) {
         categoriesUi.clear()
-        categoriesUi.addAll(newItems.map { CategorieUi(it) })
+        categoriesUi.addAll(newItems)
         notifyDataSetChanged()
     }
 

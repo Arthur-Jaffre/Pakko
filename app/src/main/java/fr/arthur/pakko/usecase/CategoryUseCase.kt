@@ -44,4 +44,9 @@ class CategoryUseCase(
         categoryRepository.deleteCategory(category)
     }
 
+    suspend fun getCategoriesForElement(elementId: String): List<Category> {
+        return categoryRepository.getCategoriesForElement(elementId)
+    }
+
+
 }
