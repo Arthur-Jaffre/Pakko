@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +14,7 @@ import fr.arthur.pakko.R
 import fr.arthur.pakko.adapters.AllCategoriesAdapter
 import fr.arthur.pakko.models.Element
 import fr.arthur.pakko.viewmodel.CategoryViewModel
+import fr.arthur.pakko.viewmodel.ElementViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentAddElement : Fragment() {
@@ -24,6 +26,7 @@ class FragmentAddElement : Fragment() {
     private lateinit var adapter: AllCategoriesAdapter
     private var currentElement: Element? = null
     private val categoryViewModel: CategoryViewModel by viewModel()
+    private val elementViewModel: ElementViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -45,11 +48,26 @@ class FragmentAddElement : Fragment() {
         if (currentElement != null) {
             buttonDelete.visibility = View.VISIBLE
             buttonDelete.setOnClickListener {
-                // TODO : supprimer l'élément
+                // supprimer l'élément
+                elementViewModel.deleteElement(currentElement!!)
             }
         }
 
         buttonSave = rootView.findViewById(R.id.button_save)
+        buttonSave.setOnClickListener {
+            val element =
+                if (currentElement == null) {
+                    Element(nom = editText.text.toString())
+                } else {
+                    currentElement!!.copy(nom = editText.text.toString())
+                }
+
+            elementViewModel.insertElementWithCrossRefs(
+                element,
+                adapter.getSelectedCrossRefs(element.id)
+            )
+            Toast.makeText(context, "Element enregistré", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setupRecyclerView() {
