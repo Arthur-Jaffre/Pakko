@@ -1,10 +1,11 @@
 package fr.arthur.pakko.repositories
 
+import fr.arthur.pakko.models.CategorieUi
 import fr.arthur.pakko.models.Category
 import fr.arthur.pakko.models.Element
 import fr.arthur.pakko.room.DAO.ElementDao
-import fr.arthur.pakko.room.entities.ElementCategorieEntityCrossRef
 import fr.arthur.pakko.utils.toElement
+import fr.arthur.pakko.utils.toElementCategorieEntityCrossRef
 import fr.arthur.pakko.utils.toElementEntity
 
 class ElementRepository(
@@ -22,10 +23,13 @@ class ElementRepository(
         return elementDao.getElementsByCategory(category.id).map { it.toElement() }
     }
 
-    suspend fun insertElementWithCrossRefs(
+    suspend fun updateElementWithCategories(
         element: Element,
-        crossRefs: List<ElementCategorieEntityCrossRef>
+        selectedCategories: List<CategorieUi>
     ) {
-        elementDao.insertElementWithCrossRefs(element.toElementEntity(), crossRefs)
+        elementDao.updateElementWithCategories(
+            element.toElementEntity(),
+            selectedCategories.map { it.toElementCategorieEntityCrossRef(element.id) }
+        )
     }
 }

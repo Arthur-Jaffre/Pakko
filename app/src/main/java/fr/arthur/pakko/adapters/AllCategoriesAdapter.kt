@@ -8,11 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import fr.arthur.pakko.R
 import fr.arthur.pakko.models.CategorieUi
-import fr.arthur.pakko.room.entities.ElementCategorieEntityCrossRef
-import fr.arthur.pakko.utils.toElementCategorieEntityCrossRef
 
 class AllCategoriesAdapter(
-    private val onElementChecked: ((CategorieUi) -> Unit)? = null
+    private val onCategoryChecked: ((CategorieUi) -> Unit)? = null
 ) : RecyclerView.Adapter<AllCategoriesAdapter.AllCategoriesViewHolder>() {
     private val categoriesUi = mutableListOf<CategorieUi>()
 
@@ -37,7 +35,7 @@ class AllCategoriesAdapter(
         holder.checkBox.isChecked = item.coche
         holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
             item.coche = isChecked
-            onElementChecked?.invoke(item)
+            onCategoryChecked?.invoke(item)
         }
     }
 
@@ -47,9 +45,7 @@ class AllCategoriesAdapter(
         notifyDataSetChanged()
     }
 
-    fun getSelectedCrossRefs(elementId: String): List<ElementCategorieEntityCrossRef> {
-        return categoriesUi
-            .filter { it.coche }
-            .map { it.toElementCategorieEntityCrossRef(elementId) }
+    fun getSelectedCategories(): List<CategorieUi> {
+        return categoriesUi.filter { it.coche }
     }
 }

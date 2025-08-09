@@ -1,9 +1,9 @@
 package fr.arthur.pakko.usecase
 
+import fr.arthur.pakko.models.CategorieUi
 import fr.arthur.pakko.models.Category
 import fr.arthur.pakko.models.Element
 import fr.arthur.pakko.repositories.ElementRepository
-import fr.arthur.pakko.room.entities.ElementCategorieEntityCrossRef
 
 class ElementUseCase(
     private val elementRepository: ElementRepository
@@ -12,15 +12,15 @@ class ElementUseCase(
         return elementRepository.getAllElements()
     }
 
-    suspend fun getElementsByCategory(category: Category): List<Element> {
-        return elementRepository.getElementsByCategory(category)
+    suspend fun updateElementWithCategories(
+        element: Element,
+        selectedCategories: List<CategorieUi>
+    ) {
+        elementRepository.updateElementWithCategories(element, selectedCategories)
     }
 
-    suspend fun insertElementWithCrossRefs(
-        element: Element,
-        crossRefs: List<ElementCategorieEntityCrossRef>
-    ) {
-        elementRepository.insertElementWithCrossRefs(element, crossRefs)
+    suspend fun getElementsByCategory(category: Category): List<Element> {
+        return elementRepository.getElementsByCategory(category)
     }
 
     suspend fun deleteElement(element: Element) {

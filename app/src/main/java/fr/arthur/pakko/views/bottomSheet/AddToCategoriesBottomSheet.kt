@@ -37,7 +37,7 @@ class AddToCategoriesBottomSheet : BottomSheetDialogFragment() {
         categoriesRecyclerView = view.findViewById(R.id.categories_recycler_view)
         categoriesRecyclerView.layoutManager = LinearLayoutManager(context)
         categoriesAdapter = AllCategoriesAdapter(
-            onElementChecked = { categoryUi -> onElementChecked(categoryUi) }
+            onCategoryChecked = { categoryUi -> onElementChecked(categoryUi) }
         )
         categoriesRecyclerView.adapter = categoriesAdapter
 

@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import fr.arthur.pakko.models.CategorieUi
 import fr.arthur.pakko.models.Category
 import fr.arthur.pakko.models.Element
-import fr.arthur.pakko.room.entities.ElementCategorieEntityCrossRef
 import fr.arthur.pakko.usecase.ElementUseCase
 import kotlinx.coroutines.launch
 
@@ -19,19 +19,15 @@ class ElementViewModel(
     private val _elementsByCategory = MutableLiveData<List<Element>>()
     val elementsByCategory: LiveData<List<Element>> = _elementsByCategory
 
-    fun getAllElements() {
+    fun updateElementWithCategories(element: Element, selectedCategories: List<CategorieUi>) {
         viewModelScope.launch {
-            _elements.value = elementUseCase.getAllElements()
+            elementUseCase.updateElementWithCategories(element, selectedCategories)
         }
     }
 
-    fun insertElementWithCrossRefs(
-        element: Element,
-        crossRefs: List<ElementCategorieEntityCrossRef>
-    ) {
+    fun getAllElements() {
         viewModelScope.launch {
-            elementUseCase.insertElementWithCrossRefs(element, crossRefs)
-            getAllElements()
+            _elements.value = elementUseCase.getAllElements()
         }
     }
 

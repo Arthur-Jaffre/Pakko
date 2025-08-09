@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
+import androidx.room.Update
 import fr.arthur.pakko.room.entities.ElementCategorieEntityCrossRef
 import fr.arthur.pakko.room.entities.ElementEntity
 
@@ -23,14 +24,8 @@ interface ElementDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCrossRefs(crossRefs: List<ElementCategorieEntityCrossRef>)
 
-    @Transaction
-    suspend fun insertElementWithCrossRefs(
-        element: ElementEntity,
-        crossRefs: List<ElementCategorieEntityCrossRef>
-    ) {
-        insert(element)
-        insertCrossRefs(crossRefs)
-    }
+    @Update
+    suspend fun update(element: ElementEntity)
 
     @Query(
         """
@@ -42,5 +37,26 @@ interface ElementDao {
     """
     )
     suspend fun getElementsByCategory(categoryId: String): List<ElementEntity>
+
+    @Query("DELETE FROM elements_categories WHERE element_id = :elementId")
+    suspend fun deleteAllElementCategories(elementId: String)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertOrUpdateCrossRef(crossRef: ElementCategorieEntityCrossRef)
+
+    @Transaction
+    suspend fun updateElementWithCategories(
+        element: ElementEntity,
+        selectedCategories: List<ElementCategorieEntityCrossRef>
+    ) {
+        // 1. Mise à jour de l'élément
+        update(element)
+        // 2. Suppression des liaisons existantes
+        deleteAllElementCategories(element.id)
+        // 3. Réinsertion des nouvelles liaisons
+        selectedCategories.forEach { categoryUi ->
+            insertOrUpdateCrossRef(categoryUi)
+        }
+    }
 
 }
