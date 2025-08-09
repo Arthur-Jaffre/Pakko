@@ -6,17 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import fr.arthur.pakko.R
+import fr.arthur.pakko.models.Category
 import fr.arthur.pakko.models.Element
+import fr.arthur.pakko.viewmodel.CategoryViewModel
 import fr.arthur.pakko.views.MainActivity
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class ModifyElementBottomSheet : BottomSheetDialogFragment() {
     private lateinit var deleteButton: LinearLayout
     private lateinit var editButton: LinearLayout
     private lateinit var entryComment: EditText
     lateinit var element: Element
+    lateinit var category: Category
+    private val categoryViewModel: CategoryViewModel by activityViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,7 +42,13 @@ class ModifyElementBottomSheet : BottomSheetDialogFragment() {
         entryComment = view.findViewById(R.id.entry_element_comment)
 
         deleteButton.setOnClickListener {
-            // TODO : supprimer l'élément de la catégorie
+            // supprimer l'élément de la catégorie
+            categoryViewModel.deleteElementCategoryCrossRef(element, category)
+            Toast.makeText(
+                context,
+                getString(R.string.element_removed_from_category),
+                Toast.LENGTH_SHORT
+            ).show()
             dismiss()
         }
 

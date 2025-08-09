@@ -14,8 +14,10 @@ import fr.arthur.pakko.R
 import fr.arthur.pakko.adapters.ElementsByCategoriesAdapter
 import fr.arthur.pakko.models.Category
 import fr.arthur.pakko.models.Element
+import fr.arthur.pakko.viewmodel.CategoryViewModel
 import fr.arthur.pakko.viewmodel.ElementViewModel
 import fr.arthur.pakko.views.bottomSheet.ModifyElementBottomSheet
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentElementsByCategories : Fragment() {
@@ -26,6 +28,8 @@ class FragmentElementsByCategories : Fragment() {
     private lateinit var pageTitle: TextView
     private lateinit var category: Category
     private val elementViewModel: ElementViewModel by viewModel()
+    private val categoryViewModel: CategoryViewModel by activityViewModel()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -63,6 +67,13 @@ class FragmentElementsByCategories : Fragment() {
         elementViewModel.elementsByCategory.observe(viewLifecycleOwner) {
             adapter.submitList(it.toList())
         }
+
+        categoryViewModel.elementCategoryDeleted.observe(viewLifecycleOwner) { deleted ->
+            if (deleted) {
+                elementViewModel.getElementsByCategory(category)
+            }
+        }
+
         elementViewModel.getElementsByCategory(category)
 
         recyclerView.adapter = adapter
@@ -71,6 +82,7 @@ class FragmentElementsByCategories : Fragment() {
     private fun openModifyElementBottomSheet(element: Element) {
         val bottomSheet = ModifyElementBottomSheet()
         bottomSheet.element = element
+        bottomSheet.category = category
         bottomSheet.show(parentFragmentManager, "ModifyElement")
     }
 }

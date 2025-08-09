@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import fr.arthur.pakko.models.CategorieUi
 import fr.arthur.pakko.models.Category
+import fr.arthur.pakko.models.Element
 import fr.arthur.pakko.usecase.CategoryUseCase
 import kotlinx.coroutines.launch
 
@@ -14,6 +15,9 @@ class CategoryViewModel(
 ) : ViewModel() {
     private val _categories = MutableLiveData<List<Category>>()
     val categories: LiveData<List<Category>> = _categories
+
+    private val _elementCategoryDeleted = MutableLiveData<Boolean>()
+    val elementCategoryDeleted: LiveData<Boolean> = _elementCategoryDeleted
 
     private val _categoriesForElement = MutableLiveData<List<Category>>()
     val categoriesForElement: LiveData<List<Category>> = _categoriesForElement
@@ -35,6 +39,13 @@ class CategoryViewModel(
             } catch (e: Exception) {
                 _error.value = e
             }
+        }
+    }
+
+    fun deleteElementCategoryCrossRef(element: Element, category: Category) {
+        viewModelScope.launch {
+            categoryUseCase.deleteElementCategoryCrossRef(element.id, category.id)
+            _elementCategoryDeleted.postValue(true)
         }
     }
 

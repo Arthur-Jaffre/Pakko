@@ -27,13 +27,13 @@ class ElementViewModel(
 
     fun getAllElements() {
         viewModelScope.launch {
-            _elements.value = elementUseCase.getAllElements()
+            _elements.postValue(elementUseCase.getAllElements())
         }
     }
 
     fun getElementsByCategory(category: Category) {
         viewModelScope.launch {
-            _elementsByCategory.value = elementUseCase.getElementsByCategory(category)
+            _elementsByCategory.postValue(elementUseCase.getElementsByCategory(category))
         }
     }
 

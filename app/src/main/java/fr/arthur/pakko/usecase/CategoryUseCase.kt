@@ -63,8 +63,12 @@ class CategoryUseCase(
             )
         } else {
             // Suppression
-            categoryRepository.deleteElementCategoryCrossRef(elementId, categoryUI.category.id)
+            deleteElementCategoryCrossRef(elementId, categoryUI.category.id)
         }
+    }
+
+    suspend fun deleteElementCategoryCrossRef(elementId: String, categoryId: String) {
+        categoryRepository.deleteElementCategoryCrossRef(elementId, categoryId)
     }
 
 
