@@ -16,6 +16,7 @@ class ElementRepository(
     }
 
     suspend fun deleteElement(element: Element) {
+        // TODO : le supprimer de ses catégories
         elementDao.delete(element.toElementEntity())
     }
 

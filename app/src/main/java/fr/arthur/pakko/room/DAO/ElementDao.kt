@@ -12,8 +12,8 @@ import fr.arthur.pakko.room.entities.ElementEntity
 
 @Dao
 interface ElementDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(element: ElementEntity)
+//    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//    suspend fun insert(element: ElementEntity)
 
     @Delete
     suspend fun delete(element: ElementEntity)
@@ -21,8 +21,8 @@ interface ElementDao {
     @Query("SELECT * FROM elements ORDER BY nom")
     suspend fun getAll(): List<ElementEntity>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCrossRefs(crossRefs: List<ElementCategorieEntityCrossRef>)
+//    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//    suspend fun insertCrossRefs(crossRefs: List<ElementCategorieEntityCrossRef>)
 
     @Update
     suspend fun update(element: ElementEntity)

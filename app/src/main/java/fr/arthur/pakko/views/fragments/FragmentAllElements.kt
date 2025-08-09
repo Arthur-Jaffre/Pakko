@@ -12,14 +12,14 @@ import fr.arthur.pakko.adapters.AllElementsAdapter
 import fr.arthur.pakko.models.Element
 import fr.arthur.pakko.viewmodel.ElementViewModel
 import fr.arthur.pakko.views.bottomSheet.AddToCategoriesBottomSheet
-import org.koin.androidx.viewmodel.ext.android.activityViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentAllElements : Fragment() {
 
     private lateinit var rootView: View
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AllElementsAdapter
-    private val elementViewModel: ElementViewModel by activityViewModel()
+    private val elementViewModel: ElementViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?

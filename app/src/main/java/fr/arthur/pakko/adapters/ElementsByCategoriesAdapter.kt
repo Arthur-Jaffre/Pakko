@@ -18,8 +18,9 @@ class ElementsByCategoriesAdapter(
 
     class ElementsByCategoriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val itemTitle: TextView = itemView.findViewById(R.id.item_title)
+
+        // TODO : gérer le checkbox
         val isChecked: CheckBox = itemView.findViewById(R.id.element_checkBox)
-        val itemComment: TextView = itemView.findViewById(R.id.item_comment)
         val itemButton: ImageButton = itemView.findViewById(R.id.item_button)
     }
 
