@@ -14,7 +14,9 @@ import fr.arthur.pakko.R
 import fr.arthur.pakko.adapters.ElementsByCategoriesAdapter
 import fr.arthur.pakko.models.Category
 import fr.arthur.pakko.models.Element
+import fr.arthur.pakko.viewmodel.ElementViewModel
 import fr.arthur.pakko.views.bottomSheet.ModifyElementBottomSheet
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentElementsByCategories : Fragment() {
     private lateinit var rootView: View
@@ -23,6 +25,7 @@ class FragmentElementsByCategories : Fragment() {
     private lateinit var returnButton: ImageButton
     private lateinit var pageTitle: TextView
     private lateinit var category: Category
+    private val elementViewModel: ElementViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -51,18 +54,16 @@ class FragmentElementsByCategories : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         adapter = ElementsByCategoriesAdapter(
-            elements = mutableListOf(
-                Element(nom = "element1"),
-                Element(nom = "element2"),
-                Element(nom = "element3"),
-                Element(nom = "element4"),
-                Element(nom = "element5")
-            ),
             onElementClick = { element ->
                 // afficher le popup de modification de l'élément
                 openModifyElementBottomSheet(element)
             }
         )
+
+        elementViewModel.elementsByCategory.observe(viewLifecycleOwner) {
+            adapter.submitList(it.toList())
+        }
+        elementViewModel.getElementsByCategory(category)
 
         recyclerView.adapter = adapter
     }

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import fr.arthur.pakko.models.Category
 import fr.arthur.pakko.models.Element
 import fr.arthur.pakko.room.entities.ElementCategorieEntityCrossRef
 import fr.arthur.pakko.usecase.ElementUseCase
@@ -14,6 +15,9 @@ class ElementViewModel(
 ) : ViewModel() {
     private val _elements = MutableLiveData<List<Element>>()
     val elements: LiveData<List<Element>> = _elements
+
+    private val _elementsByCategory = MutableLiveData<List<Element>>()
+    val elementsByCategory: LiveData<List<Element>> = _elementsByCategory
 
     fun getAllElements() {
         viewModelScope.launch {
@@ -28,6 +32,12 @@ class ElementViewModel(
         viewModelScope.launch {
             elementUseCase.insertElementWithCrossRefs(element, crossRefs)
             getAllElements()
+        }
+    }
+
+    fun getElementsByCategory(category: Category) {
+        viewModelScope.launch {
+            _elementsByCategory.value = elementUseCase.getElementsByCategory(category)
         }
     }
 

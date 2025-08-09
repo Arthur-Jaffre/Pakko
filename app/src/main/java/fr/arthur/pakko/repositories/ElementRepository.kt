@@ -1,5 +1,6 @@
 package fr.arthur.pakko.repositories
 
+import fr.arthur.pakko.models.Category
 import fr.arthur.pakko.models.Element
 import fr.arthur.pakko.room.DAO.ElementDao
 import fr.arthur.pakko.room.entities.ElementCategorieEntityCrossRef
@@ -15,6 +16,10 @@ class ElementRepository(
 
     suspend fun deleteElement(element: Element) {
         elementDao.delete(element.toElementEntity())
+    }
+
+    suspend fun getElementsByCategory(category: Category): List<Element> {
+        return elementDao.getElementsByCategory(category.id).map { it.toElement() }
     }
 
     suspend fun insertElementWithCrossRefs(

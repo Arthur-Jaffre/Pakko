@@ -31,4 +31,16 @@ interface ElementDao {
         insert(element)
         insertCrossRefs(crossRefs)
     }
+
+    @Query(
+        """
+    SELECT e.* 
+    FROM elements e
+    INNER JOIN elements_categories ec 
+        ON ec.element_id = e.id
+    WHERE ec.categorie_id = :categoryId
+    """
+    )
+    suspend fun getElementsByCategory(categoryId: String): List<ElementEntity>
+
 }

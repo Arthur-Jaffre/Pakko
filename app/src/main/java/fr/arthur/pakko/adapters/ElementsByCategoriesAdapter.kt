@@ -11,15 +11,22 @@ import fr.arthur.pakko.R
 import fr.arthur.pakko.models.Element
 
 class ElementsByCategoriesAdapter(
-    private val elements: MutableList<Element>,
     private val onElementClick: (Element) -> Unit
 ) : RecyclerView.Adapter<ElementsByCategoriesAdapter.ElementsByCategoriesViewHolder>() {
+
+    private val elements = mutableListOf<Element>()
 
     class ElementsByCategoriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val itemTitle: TextView = itemView.findViewById(R.id.item_title)
         val isChecked: CheckBox = itemView.findViewById(R.id.element_checkBox)
         val itemComment: TextView = itemView.findViewById(R.id.item_comment)
         val itemButton: ImageButton = itemView.findViewById(R.id.item_button)
+    }
+
+    fun submitList(newItems: List<Element>) {
+        elements.clear()
+        elements.addAll(newItems)
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(
