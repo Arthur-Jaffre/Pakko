@@ -18,6 +18,7 @@ class CategoriesAdapter(
     class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val itemTitle: TextView = itemView.findViewById(R.id.item_title)
         val itemButton: ImageButton = itemView.findViewById(R.id.item_button)
+        val itemSettings: ImageButton = itemView.findViewById(R.id.settings_button)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
@@ -32,11 +33,11 @@ class CategoriesAdapter(
         val category = categories[position]
         holder.itemTitle.text = category.nom
         // modifier
-        holder.itemButton.setOnClickListener {
+        holder.itemSettings.setOnClickListener {
             onCategoryModifyClick(category)
         }
         // ouvrir éléments par catégories
-        holder.itemView.setOnClickListener {
+        holder.itemButton.setOnClickListener { // itemView
             onCategoryClick(category)
         }
     }
