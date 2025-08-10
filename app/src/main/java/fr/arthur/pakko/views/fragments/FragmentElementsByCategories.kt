@@ -13,12 +13,11 @@ import androidx.recyclerview.widget.RecyclerView
 import fr.arthur.pakko.R
 import fr.arthur.pakko.adapters.ElementsByCategoriesAdapter
 import fr.arthur.pakko.models.Category
-import fr.arthur.pakko.models.Element
+import fr.arthur.pakko.models.ElementUi
 import fr.arthur.pakko.viewmodel.CategoryViewModel
 import fr.arthur.pakko.viewmodel.ElementViewModel
 import fr.arthur.pakko.views.bottomSheet.ModifyElementBottomSheet
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentElementsByCategories : Fragment() {
     private lateinit var rootView: View
@@ -27,7 +26,7 @@ class FragmentElementsByCategories : Fragment() {
     private lateinit var returnButton: ImageButton
     private lateinit var pageTitle: TextView
     private lateinit var category: Category
-    private val elementViewModel: ElementViewModel by viewModel()
+    private val elementViewModel: ElementViewModel by activityViewModel()
     private val categoryViewModel: CategoryViewModel by activityViewModel()
 
 
@@ -58,30 +57,32 @@ class FragmentElementsByCategories : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         adapter = ElementsByCategoriesAdapter(
-            onElementClick = { element ->
+            onElementClick = { elementUi ->
                 // afficher le popup de modification de l'élément
-                openModifyElementBottomSheet(element)
+                openModifyElementBottomSheet(elementUi)
             }
         )
 
-        elementViewModel.elementsByCategory.observe(viewLifecycleOwner) {
-            adapter.submitList(it.toList())
-        }
-
-        categoryViewModel.elementCategoryDeleted.observe(viewLifecycleOwner) { deleted ->
-            if (deleted) {
-                elementViewModel.getElementsByCategory(category)
-            }
-        }
-
-        elementViewModel.getElementsByCategory(category)
+        setupViewModel()
 
         recyclerView.adapter = adapter
     }
 
-    private fun openModifyElementBottomSheet(element: Element) {
+    private fun setupViewModel() {
+        elementViewModel.elementsByCategory.observe(viewLifecycleOwner) {
+            adapter.submitList(it.toList())
+        }
+
+        categoryViewModel.elementCategoryModified.observe(viewLifecycleOwner) {
+            elementViewModel.getElementsForCategory(category.id)
+        }
+
+        elementViewModel.getElementsForCategory(category.id)
+    }
+
+    private fun openModifyElementBottomSheet(element: ElementUi) {
         val bottomSheet = ModifyElementBottomSheet()
-        bottomSheet.element = element
+        bottomSheet.elementUi = element
         bottomSheet.category = category
         bottomSheet.show(parentFragmentManager, "ModifyElement")
     }

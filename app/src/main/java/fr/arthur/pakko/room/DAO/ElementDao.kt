@@ -9,6 +9,7 @@ import androidx.room.Transaction
 import androidx.room.Update
 import fr.arthur.pakko.room.entities.ElementCategorieEntityCrossRef
 import fr.arthur.pakko.room.entities.ElementEntity
+import fr.arthur.pakko.room.relations.ElementAvecInfosParCategorieRelation
 
 @Dao
 interface ElementDao {
@@ -58,5 +59,18 @@ interface ElementDao {
             insertOrUpdateCrossRef(categoryUi)
         }
     }
+
+    @Query(
+        """
+        SELECT e.id, e.nom, ec.commentaire, ec.coche
+        FROM elements AS e
+        INNER JOIN elements_categories AS ec
+            ON e.id = ec.element_id
+        WHERE ec.categorie_id = :categorieId
+    """
+    )
+    suspend fun getElementsForCategory(
+        categorieId: String
+    ): List<ElementAvecInfosParCategorieRelation>
 
 }

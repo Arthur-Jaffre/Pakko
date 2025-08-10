@@ -3,9 +3,11 @@ package fr.arthur.pakko.utils
 import fr.arthur.pakko.models.CategorieUi
 import fr.arthur.pakko.models.Category
 import fr.arthur.pakko.models.Element
+import fr.arthur.pakko.models.ElementUi
 import fr.arthur.pakko.room.entities.CategorieEntity
 import fr.arthur.pakko.room.entities.ElementCategorieEntityCrossRef
 import fr.arthur.pakko.room.entities.ElementEntity
+import fr.arthur.pakko.room.relations.ElementAvecInfosParCategorieRelation
 
 fun CategorieEntity.toCategory(): Category {
     return Category(
@@ -40,6 +42,14 @@ fun CategorieUi.toElementCategorieEntityCrossRef(elementId: String): ElementCate
         element_id = elementId,
         categorie_id = category.id,
         commentaire = comment,
+        coche = coche
+    )
+}
+
+fun ElementAvecInfosParCategorieRelation.toElementUi(): ElementUi {
+    return ElementUi(
+        element = element.toElement(),
+        comment = commentaire,
         coche = coche
     )
 }

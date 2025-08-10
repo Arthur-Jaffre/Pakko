@@ -1,12 +1,13 @@
 package fr.arthur.pakko.repositories
 
 import fr.arthur.pakko.models.CategorieUi
-import fr.arthur.pakko.models.Category
 import fr.arthur.pakko.models.Element
+import fr.arthur.pakko.models.ElementUi
 import fr.arthur.pakko.room.DAO.ElementDao
 import fr.arthur.pakko.utils.toElement
 import fr.arthur.pakko.utils.toElementCategorieEntityCrossRef
 import fr.arthur.pakko.utils.toElementEntity
+import fr.arthur.pakko.utils.toElementUi
 
 class ElementRepository(
     private val elementDao: ElementDao
@@ -20,8 +21,8 @@ class ElementRepository(
         elementDao.delete(element.toElementEntity())
     }
 
-    suspend fun getElementsByCategory(category: Category): List<Element> {
-        return elementDao.getElementsByCategory(category.id).map { it.toElement() }
+    suspend fun getElementsForCategory(categorieId: String): List<ElementUi> {
+        return elementDao.getElementsForCategory(categorieId).map { it.toElementUi() }
     }
 
     suspend fun updateElementWithCategories(

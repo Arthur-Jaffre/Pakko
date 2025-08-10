@@ -11,13 +11,13 @@ import fr.arthur.pakko.usecase.CategoryUseCase
 import kotlinx.coroutines.launch
 
 class CategoryViewModel(
-    private val categoryUseCase: CategoryUseCase
+    private val categoryUseCase: CategoryUseCase,
 ) : ViewModel() {
     private val _categories = MutableLiveData<List<Category>>()
     val categories: LiveData<List<Category>> = _categories
 
-    private val _elementCategoryDeleted = MutableLiveData<Boolean>()
-    val elementCategoryDeleted: LiveData<Boolean> = _elementCategoryDeleted
+    private val _elementCategoryModified = MutableLiveData<Boolean>()
+    val elementCategoryModified: LiveData<Boolean> = _elementCategoryModified
 
     private val _categoriesForElement = MutableLiveData<List<Category>>()
     val categoriesForElement: LiveData<List<Category>> = _categoriesForElement
@@ -42,10 +42,24 @@ class CategoryViewModel(
         }
     }
 
+    fun updateCrossRef(element: Element, category: Category, commentaire: String) {
+        viewModelScope.launch {
+            categoryUseCase.updateElementCategory(
+                CategorieUi(
+                    category = category,
+                    comment = commentaire,
+                    coche = true
+                ),
+                element.id
+            )
+            _elementCategoryModified.postValue(true)
+        }
+    }
+
     fun deleteElementCategoryCrossRef(element: Element, category: Category) {
         viewModelScope.launch {
             categoryUseCase.deleteElementCategoryCrossRef(element.id, category.id)
-            _elementCategoryDeleted.postValue(true)
+            _elementCategoryModified.postValue(true)
         }
     }
 
