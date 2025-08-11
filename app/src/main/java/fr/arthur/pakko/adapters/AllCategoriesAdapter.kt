@@ -44,6 +44,11 @@ class AllCategoriesAdapter(
         notifyDataSetChanged()
     }
 
+    fun clearSelectedCategories() {
+        elementCategory.forEach { it.coche = false }
+        notifyDataSetChanged()
+    }
+
     fun getSelectedCategories(): List<Category> {
         return elementCategory.filter { it.coche }.map { it.category }
     }

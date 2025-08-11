@@ -18,9 +18,12 @@
 
     <TextView
         android:id="@+id/title_element"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:ellipsize="end"
+        android:gravity="end"
+        android:maxLines="1"
         android:paddingStart="0dp"
         android:paddingEnd="30dp"
         android:text="@string/element"

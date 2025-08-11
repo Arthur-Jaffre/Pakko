@@ -123,6 +123,8 @@ class FragmentAddElement : Fragment() {
                 Element(nom = elementName),
                 adapter.getSelectedCategories()
             )
+            // réinitialiser le fragment
+            initFragment()
         } else {
             // destruction du fragment donc obliger d'attendre la fin de la transaction + suspend (VM)
             lifecycleScope.launch {
@@ -137,5 +139,10 @@ class FragmentAddElement : Fragment() {
 
         Toast.makeText(context, getString(R.string.element_saved), Toast.LENGTH_SHORT).show()
 
+    }
+
+    private fun initFragment() {
+        editText.text.clear()
+        adapter.clearSelectedCategories()
     }
 }

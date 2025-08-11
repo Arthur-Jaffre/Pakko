@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -20,6 +22,7 @@ class CreateElementBottomSheet : BottomSheetDialogFragment() {
     lateinit var currentCategory: Category
     private lateinit var elementsSelectAdapter: ElementsSelectAdapter
     private lateinit var recyclerView: RecyclerView
+    private lateinit var modifyElementTitle: TextView
     private val elementViewModel: ElementViewModel by activityViewModel()
 
     override fun onCreateView(
@@ -36,10 +39,12 @@ class CreateElementBottomSheet : BottomSheetDialogFragment() {
 
     private fun onElementClicked(element: Element) {
         elementViewModel.addElementByCategory(element, currentCategory)
+        Toast.makeText(context, getString(R.string.element_saved), Toast.LENGTH_SHORT).show()
         dismiss()
     }
 
     private fun initComponent(view: View) {
+        modifyElementTitle = view.findViewById(R.id.existing_element_title)
         recyclerView = view.findViewById(R.id.recycler_existing_elements)
         recyclerView.layoutManager = LinearLayoutManager(context)
         elementsSelectAdapter = ElementsSelectAdapter(
@@ -49,6 +54,13 @@ class CreateElementBottomSheet : BottomSheetDialogFragment() {
 
         elementViewModel.elementsNotInCategory.observe(viewLifecycleOwner) { elements ->
             elementsSelectAdapter.submitList(elements)
+            if (elements.isEmpty()) {
+                modifyElementTitle.visibility = View.GONE
+                recyclerView.visibility = View.GONE
+            } else {
+                modifyElementTitle.visibility = View.VISIBLE
+                recyclerView.visibility = View.VISIBLE
+            }
         }
         elementViewModel.getElementsNotInCategory(currentCategory)
 

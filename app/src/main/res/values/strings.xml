@@ -8,7 +8,7 @@
     <string name="button_delete">Supprimer</string>
     <string name="element_deleted">Élément supprimé</string>
     <string name="create_new_element">Créer un nouvel élément</string>
-    <string name="select_existing_element">Choisir parmi les éléments</string>
+    <string name="select_existing_element">Choisir parmi les éléments existants</string>
     <string name="button_save_element">Sauvegarder</string>
     <string name="element_name_edit_text">Nom de l\'élément</string>
     <string name="category">categorie</string>
