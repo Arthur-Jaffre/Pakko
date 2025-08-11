@@ -15,6 +15,7 @@ import fr.arthur.pakko.adapters.ElementsByCategoriesAdapter
 import fr.arthur.pakko.models.Category
 import fr.arthur.pakko.models.ElementCategory
 import fr.arthur.pakko.viewmodel.ElementViewModel
+import fr.arthur.pakko.views.bottomSheet.CreateElementBottomSheet
 import fr.arthur.pakko.views.bottomSheet.ModifyElementBottomSheet
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
@@ -25,6 +26,7 @@ class FragmentElementsByCategories : Fragment() {
     private lateinit var returnButton: ImageButton
     private lateinit var pageTitle: TextView
     private lateinit var category: Category
+    private lateinit var addButton: ImageButton
     private val elementViewModel: ElementViewModel by activityViewModel()
 
 
@@ -44,6 +46,12 @@ class FragmentElementsByCategories : Fragment() {
         category = requireArguments().getSerializable("category") as Category
         returnButton = rootView.findViewById(R.id.return_button)
         pageTitle = rootView.findViewById(R.id.title_element)
+        addButton = rootView.findViewById(R.id.add_element_button)
+        addButton.setOnClickListener {
+            val bottomSheet = CreateElementBottomSheet()
+            bottomSheet.currentCategory = category
+            bottomSheet.show(parentFragmentManager, "CreateElement")
+        }
         pageTitle.text = category.nom
         returnButton.setOnClickListener {
             findNavController().navigateUp()

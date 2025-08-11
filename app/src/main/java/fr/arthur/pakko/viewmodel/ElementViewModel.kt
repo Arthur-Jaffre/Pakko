@@ -74,6 +74,16 @@ class ElementViewModel(
 
     }
 
+    fun addElementByCategory(element: Element, category: Category) {
+        viewModelScope.launch {
+            elementUseCase.insertElement(element)
+            elementCategoryUseCase.insertElementCategory(
+                ElementCategory(element, category)
+            )
+            getElementsByCategory(category)
+        }
+    }
+
     fun addElementWithCategories(element: Element, categories: List<Category>) {
         viewModelScope.launch {
             elementUseCase.insertElement(element)

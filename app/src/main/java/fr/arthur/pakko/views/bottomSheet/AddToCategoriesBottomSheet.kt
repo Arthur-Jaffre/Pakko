@@ -20,7 +20,7 @@ class AddToModificationBottomSheet : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.popup_add_element_to_categories, container, false)
+        val view = inflater.inflate(R.layout.popup_open_to_modify, container, false)
         initComponent(view)
         return view
     }
