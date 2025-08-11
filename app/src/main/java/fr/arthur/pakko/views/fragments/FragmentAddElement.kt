@@ -116,7 +116,7 @@ class FragmentAddElement : Fragment() {
     }
 
     private fun onSaveClicked() {
-        val elementName = editText.text.toString()
+        val elementName = editText.text.toString().trim()
 
         if (currentElement == null) {
             elementViewModel.addElementWithCategories(

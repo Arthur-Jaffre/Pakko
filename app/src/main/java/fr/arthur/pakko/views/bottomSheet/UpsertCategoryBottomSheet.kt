@@ -53,19 +53,20 @@ class UpsertCategoryBottomSheet : BottomSheetDialogFragment() {
         }
 
         editText.setOnEditorActionListener { _, actionId, _ ->
+            val text = editText.text.toString().trim()
             if (itemCategory != null) {
                 // update
                 categoryViewModel.updateCategory(
                     Category(
                         id = itemCategory!!.id,
-                        nom = editText.text.toString()
+                        nom = text
                     )
                 )
             } else {
                 // insert
                 categoryViewModel.insertCategory(
                     Category(
-                        nom = editText.text.toString()
+                        nom = text
                     )
                 )
             }

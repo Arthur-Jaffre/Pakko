@@ -57,7 +57,7 @@ class CreateElementBottomSheet : BottomSheetDialogFragment() {
         entryComment.setOnEditorActionListener { _, actionId, _ ->
             // modifier le commentaire de l'élément en fonction de sa catégorie
             elementViewModel.addElementByCategory(
-                Element(nom = entryComment.text.toString()),
+                Element(nom = entryComment.text.toString().trim()),
                 currentCategory
             )
             dismiss()
