@@ -50,8 +50,9 @@ class ElementsByCategoriesAdapter(
         holder.itemButton.setOnClickListener {
             onElementClick(elementCategory)
         }
-        holder.coche.setOnCheckedChangeListener { _, isChecked ->
-            onChecked(elementCategory.copy(coche = isChecked))
+        holder.coche.setOnClickListener {
+            onChecked(elementCategory.copy(coche = holder.coche.isChecked))
         }
+
     }
 }

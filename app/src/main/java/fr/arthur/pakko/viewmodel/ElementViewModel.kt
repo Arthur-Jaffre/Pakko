@@ -27,6 +27,10 @@ class ElementViewModel(
         }
     }
 
+    fun initElementsByCategory() {
+        _elementsByCategory.value = emptyList()
+    }
+
     fun getElementsByCategory(category: Category) {
         viewModelScope.launch {
             _elementsByCategory.value = elementCategoryUseCase.getElementsByCategory(category)

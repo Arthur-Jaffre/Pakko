@@ -41,6 +41,11 @@ class FragmentElementsByCategories : Fragment() {
         return rootView
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        elementViewModel.initElementsByCategory()
+    }
+
 
     private fun setupComponents(rootView: View) {
         category = requireArguments().getSerializable("category") as Category
