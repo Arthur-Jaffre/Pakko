@@ -18,6 +18,7 @@ import fr.arthur.pakko.models.Category
 import fr.arthur.pakko.models.CategoryUi
 import fr.arthur.pakko.models.Element
 import fr.arthur.pakko.models.ElementCategory
+import fr.arthur.pakko.utils.formatText
 import fr.arthur.pakko.viewmodel.CategoryViewModel
 import fr.arthur.pakko.viewmodel.ElementViewModel
 import kotlinx.coroutines.launch
@@ -116,7 +117,7 @@ class FragmentAddElement : Fragment() {
     }
 
     private fun onSaveClicked() {
-        val elementName = editText.text.toString().trim()
+        val elementName = formatText(editText.text.toString())
 
         if (currentElement == null) {
             elementViewModel.addElementWithCategories(

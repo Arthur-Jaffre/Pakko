@@ -12,6 +12,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import fr.arthur.pakko.R
 import fr.arthur.pakko.models.Category
 import fr.arthur.pakko.models.ElementCategory
+import fr.arthur.pakko.utils.formatText
 import fr.arthur.pakko.viewmodel.ElementViewModel
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
@@ -64,7 +65,13 @@ class ModifyElementBottomSheet : BottomSheetDialogFragment() {
 
         entryComment.setOnEditorActionListener { _, actionId, _ ->
             // modifier le commentaire de l'élément en fonction de sa catégorie
-            elementViewModel.updateElementCategory(elementCategory.copy(comment = entryComment.text.toString()))
+            elementViewModel.updateElementCategory(
+                elementCategory.copy(
+                    comment = formatText(
+                        entryComment.text.toString()
+                    )
+                )
+            )
             dismiss()
             true
         }

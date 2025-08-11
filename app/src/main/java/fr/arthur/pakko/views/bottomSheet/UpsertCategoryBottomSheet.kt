@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import fr.arthur.pakko.R
 import fr.arthur.pakko.models.Category
+import fr.arthur.pakko.utils.formatText
 import fr.arthur.pakko.viewmodel.CategoryViewModel
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
@@ -53,7 +54,7 @@ class UpsertCategoryBottomSheet : BottomSheetDialogFragment() {
         }
 
         editText.setOnEditorActionListener { _, actionId, _ ->
-            val text = editText.text.toString().trim()
+            val text = formatText(editText.text.toString())
             if (itemCategory != null) {
                 // update
                 categoryViewModel.updateCategory(
