@@ -17,7 +17,6 @@ class CategoriesAdapter(
 
     class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val itemTitle: TextView = itemView.findViewById(R.id.item_title)
-        val itemButton: ImageButton = itemView.findViewById(R.id.item_button)
         val itemSettings: ImageButton = itemView.findViewById(R.id.settings_button)
     }
 
@@ -37,7 +36,7 @@ class CategoriesAdapter(
             onCategoryModifyClick(category)
         }
         // ouvrir éléments par catégories
-        holder.itemButton.setOnClickListener { // itemView
+        holder.itemView.setOnClickListener {
             onCategoryClick(category)
         }
     }

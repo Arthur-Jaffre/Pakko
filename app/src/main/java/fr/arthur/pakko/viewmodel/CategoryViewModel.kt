@@ -4,25 +4,22 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import fr.arthur.pakko.models.CategorieUi
 import fr.arthur.pakko.models.Category
 import fr.arthur.pakko.models.Element
+import fr.arthur.pakko.models.ElementCategory
 import fr.arthur.pakko.usecase.CategoryUseCase
+import fr.arthur.pakko.usecase.ElementCategoryUseCase
 import kotlinx.coroutines.launch
 
 class CategoryViewModel(
     private val categoryUseCase: CategoryUseCase,
+    private val elementCategoryUseCase: ElementCategoryUseCase
 ) : ViewModel() {
     private val _categories = MutableLiveData<List<Category>>()
-    val categories: LiveData<List<Category>> = _categories
+    val allCategories: LiveData<List<Category>> = _categories
 
-    private val _elementCategoryModified = MutableLiveData<Boolean>()
-    val elementCategoryModified: LiveData<Boolean> = _elementCategoryModified
-
-    private val _categoriesForElement = MutableLiveData<List<Category>>()
-    val categoriesForElement: LiveData<List<Category>> = _categoriesForElement
-    private val _error = MutableLiveData<Throwable?>()
-    val error: LiveData<Throwable?> = _error
+    private val _categoriesByElement = MutableLiveData<List<ElementCategory>>()
+    val categoriesByElement: LiveData<List<ElementCategory>> = _categoriesByElement
 
     fun getAllCategories() {
         viewModelScope.launch {
@@ -30,68 +27,33 @@ class CategoryViewModel(
         }
     }
 
-    fun updateCategories(category: Category) {
+    fun getCategoriesByElement(element: Element) {
         viewModelScope.launch {
-            try {
-                categoryUseCase.updateCategory(category)
-                _error.value = null
-                getAllCategories()
-            } catch (e: Exception) {
-                _error.value = e
-            }
+            _categoriesByElement.value = elementCategoryUseCase.getCategoriesByElement(element)
         }
     }
 
-    fun updateCrossRef(element: Element, category: Category, commentaire: String) {
+    fun insertCategory(category: Category) {
         viewModelScope.launch {
-            categoryUseCase.updateElementCategory(
-                CategorieUi(
-                    category = category,
-                    comment = commentaire,
-                    coche = true
-                ),
-                element.id
-            )
-            _elementCategoryModified.postValue(true)
-        }
-    }
-
-    fun deleteElementCategoryCrossRef(element: Element, category: Category) {
-        viewModelScope.launch {
-            categoryUseCase.deleteElementCategoryCrossRef(element.id, category.id)
-            _elementCategoryModified.postValue(true)
-        }
-    }
-
-    fun deleteCategories(category: Category) {
-        viewModelScope.launch {
-            categoryUseCase.deleteCategory(category)
+            categoryUseCase.insertCategory(category)
             getAllCategories()
         }
     }
 
-    fun insertCategories(category: Category) {
+    fun updateCategory(category: Category) {
         viewModelScope.launch {
-            try {
-                categoryUseCase.insertCategory(category)
-                _error.value = null
-                getAllCategories()
-            } catch (e: Exception) {
-                _error.value = e
-            }
-
+            categoryUseCase.updateCategory(category)
+            getAllCategories()
         }
     }
 
-    fun getCategoriesForElement(elementId: String) {
+    fun deleteCategory(category: Category) {
         viewModelScope.launch {
-            _categoriesForElement.postValue(categoryUseCase.getCategoriesForElement(elementId))
-        }
-    }
-
-    fun updateElementCategory(categoryUI: CategorieUi, elementId: String) {
-        viewModelScope.launch {
-            categoryUseCase.updateElementCategory(categoryUI, elementId)
+            // supprimer les éléments de la catégorie
+            elementCategoryUseCase.deleteAllElementFromCategory(category)
+            // supprimer la catégorie
+            categoryUseCase.deleteCategory(category)
+            getAllCategories()
         }
     }
 }

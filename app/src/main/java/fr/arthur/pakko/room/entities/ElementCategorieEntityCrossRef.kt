@@ -2,7 +2,6 @@ package fr.arthur.pakko.room.entities
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import androidx.room.Index
 
 @Entity(
     tableName = "elements_categories",
@@ -20,10 +19,6 @@ import androidx.room.Index
             childColumns = ["categorie_id"],
             onDelete = ForeignKey.CASCADE
         )
-    ],
-    indices = [
-        Index(value = ["element_id"]),
-        Index(value = ["categorie_id"])
     ]
 )
 data class ElementCategorieEntityCrossRef(

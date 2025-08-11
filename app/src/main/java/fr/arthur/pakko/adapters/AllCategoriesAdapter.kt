@@ -7,12 +7,12 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import fr.arthur.pakko.R
-import fr.arthur.pakko.models.CategorieUi
+import fr.arthur.pakko.models.Category
+import fr.arthur.pakko.models.CategoryUi
 
 class AllCategoriesAdapter(
-    private val onCategoryChecked: ((CategorieUi) -> Unit)? = null
 ) : RecyclerView.Adapter<AllCategoriesAdapter.AllCategoriesViewHolder>() {
-    private val categoriesUi = mutableListOf<CategorieUi>()
+    private val elementCategory = mutableListOf<CategoryUi>()
 
     class AllCategoriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val itemTitle: TextView = itemView.findViewById(R.id.item_title)
@@ -26,26 +26,25 @@ class AllCategoriesAdapter(
         )
     }
 
-    override fun getItemCount(): Int = categoriesUi.size
+    override fun getItemCount(): Int = elementCategory.size
 
     override fun onBindViewHolder(holder: AllCategoriesViewHolder, position: Int) {
-        val item = categoriesUi[position]
+        val item = elementCategory[position]
         holder.itemTitle.text = item.category.nom
         holder.checkBox.setOnCheckedChangeListener(null)
         holder.checkBox.isChecked = item.coche
         holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
             item.coche = isChecked
-            onCategoryChecked?.invoke(item)
         }
     }
 
-    fun submitList(newItems: List<CategorieUi>) {
-        categoriesUi.clear()
-        categoriesUi.addAll(newItems)
+    fun submitList(newItems: List<CategoryUi>) {
+        elementCategory.clear()
+        elementCategory.addAll(newItems)
         notifyDataSetChanged()
     }
 
-    fun getSelectedCategories(): List<CategorieUi> {
-        return categoriesUi.filter { it.coche }
+    fun getSelectedCategories(): List<Category> {
+        return elementCategory.filter { it.coche }.map { it.category }
     }
 }

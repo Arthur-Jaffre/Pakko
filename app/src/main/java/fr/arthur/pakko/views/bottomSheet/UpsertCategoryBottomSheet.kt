@@ -7,17 +7,15 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import fr.arthur.pakko.R
-import fr.arthur.pakko.exceptions.CategoryNameAlreadyUsedException
 import fr.arthur.pakko.models.Category
 import fr.arthur.pakko.viewmodel.CategoryViewModel
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class UpsertCategoryBottomSheet : BottomSheetDialogFragment() {
 
-    private val categoryViewModel: CategoryViewModel by activityViewModel()
+    private val categoryViewModel: CategoryViewModel by activityViewModel() // UI sera modifié dans parent
 
     private lateinit var editText: EditText
     private lateinit var pageTitle: TextView
@@ -36,19 +34,6 @@ class UpsertCategoryBottomSheet : BottomSheetDialogFragment() {
         return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        categoryViewModel.error.observe(viewLifecycleOwner) { throwable ->
-            throwable?.let {
-                val message = when (it) {
-                    is CategoryNameAlreadyUsedException -> getString(R.string.category_name_already_used)
-                    else -> it.localizedMessage ?: getString(R.string.unknown_error)
-                }
-                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
 
     private fun initComponent(view: View) {
         editText = view.findViewById(R.id.entry_category_name)
@@ -62,7 +47,7 @@ class UpsertCategoryBottomSheet : BottomSheetDialogFragment() {
 
             deleteButton.setOnClickListener {
                 // supprimer la catégorie
-                categoryViewModel.deleteCategories(itemCategory!!)
+                categoryViewModel.deleteCategory(itemCategory!!)
                 dismiss()
             }
         }
@@ -70,7 +55,7 @@ class UpsertCategoryBottomSheet : BottomSheetDialogFragment() {
         editText.setOnEditorActionListener { _, actionId, _ ->
             if (itemCategory != null) {
                 // update
-                categoryViewModel.updateCategories(
+                categoryViewModel.updateCategory(
                     Category(
                         id = itemCategory!!.id,
                         nom = editText.text.toString()
@@ -78,7 +63,7 @@ class UpsertCategoryBottomSheet : BottomSheetDialogFragment() {
                 )
             } else {
                 // insert
-                categoryViewModel.insertCategories(
+                categoryViewModel.insertCategory(
                     Category(
                         nom = editText.text.toString()
                     )

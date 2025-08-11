@@ -2,9 +2,11 @@ package fr.arthur.pakko.utils
 
 import androidx.room.Room
 import fr.arthur.pakko.repositories.CategoryRepository
+import fr.arthur.pakko.repositories.ElementCategoryRepository
 import fr.arthur.pakko.repositories.ElementRepository
 import fr.arthur.pakko.room.AppDatabase
 import fr.arthur.pakko.usecase.CategoryUseCase
+import fr.arthur.pakko.usecase.ElementCategoryUseCase
 import fr.arthur.pakko.usecase.ElementUseCase
 import fr.arthur.pakko.utils.AppConstants.DB_NAME
 import fr.arthur.pakko.viewmodel.CategoryViewModel
@@ -27,14 +29,17 @@ val appModule = module {
 
     single { get<AppDatabase>().categorieDao() }
     single { get<AppDatabase>().elementDao() }
+    single { get<AppDatabase>().elementCategorieDao() }
 
     single { CategoryRepository(get()) }
     single { ElementRepository(get()) }
+    single { ElementCategoryRepository(get()) }
 
     factory { CategoryUseCase(get()) }
     factory { ElementUseCase(get()) }
+    factory { ElementCategoryUseCase(get()) }
 
-    viewModel { CategoryViewModel(get()) }
-    viewModel { ElementViewModel(get()) }
+    viewModel { CategoryViewModel(get(), get()) }
+    viewModel { ElementViewModel(get(), get()) }
 
 }
