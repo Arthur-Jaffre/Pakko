@@ -11,7 +11,7 @@ import fr.arthur.pakko.R
 import fr.arthur.pakko.adapters.AllElementsAdapter
 import fr.arthur.pakko.models.Element
 import fr.arthur.pakko.viewmodel.ElementViewModel
-import fr.arthur.pakko.views.bottomSheet.AddToCategoriesBottomSheet
+import fr.arthur.pakko.views.bottomSheet.AddToModificationBottomSheet
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FragmentAllElements : Fragment() {
@@ -41,7 +41,7 @@ class FragmentAllElements : Fragment() {
             }
         )
 
-        elementViewModel.elements.observe(viewLifecycleOwner) {
+        elementViewModel.allElements.observe(viewLifecycleOwner) {
             adapter.submitList(it.toList())
         }
         elementViewModel.getAllElements()
@@ -50,8 +50,8 @@ class FragmentAllElements : Fragment() {
     }
 
     private fun openChoiceCategoriesBottomSheet(element: Element) {
-        val bottomSheet = AddToCategoriesBottomSheet()
+        val bottomSheet = AddToModificationBottomSheet()
         bottomSheet.element = element
-        bottomSheet.show(parentFragmentManager, "AddToCategories")
+        bottomSheet.show(parentFragmentManager, "AddToModification")
     }
 }

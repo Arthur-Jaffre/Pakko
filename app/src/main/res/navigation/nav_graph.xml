@@ -11,7 +11,7 @@
 
         <fragment
             android:id="@+id/categoriesFragment"
-            android:name="fr.arthur.pakko.views.fragments.FragmentCategories"
+            android:name="fr.arthur.pakko.views.fragments.FragmentAllCategories"
             android:label="@string/categories_list" />
 
         <fragment

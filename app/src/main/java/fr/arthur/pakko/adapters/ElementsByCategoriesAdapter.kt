@@ -8,24 +8,23 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import fr.arthur.pakko.R
-import fr.arthur.pakko.models.ElementUi
+import fr.arthur.pakko.models.ElementCategory
 
 class ElementsByCategoriesAdapter(
-    private val onElementClick: (ElementUi) -> Unit
+    private val onElementClick: (ElementCategory) -> Unit,
+    private val onChecked: (ElementCategory) -> Unit
 ) : RecyclerView.Adapter<ElementsByCategoriesAdapter.ElementsByCategoriesViewHolder>() {
 
-    private val elements = mutableListOf<ElementUi>()
+    private val elements = mutableListOf<ElementCategory>()
 
     class ElementsByCategoriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val itemTitle: TextView = itemView.findViewById(R.id.item_title)
-
-        // TODO : gérer le checkbox
-        val isChecked: CheckBox = itemView.findViewById(R.id.element_checkBox)
+        val coche: CheckBox = itemView.findViewById(R.id.element_checkBox)
         val itemButton: ImageButton = itemView.findViewById(R.id.item_button)
         val itemComment: TextView = itemView.findViewById(R.id.item_comment)
     }
 
-    fun submitList(newItems: List<ElementUi>) {
+    fun submitList(newItems: List<ElementCategory>) {
         elements.clear()
         elements.addAll(newItems)
         notifyDataSetChanged()
@@ -44,12 +43,15 @@ class ElementsByCategoriesAdapter(
     override fun getItemCount(): Int = elements.size
 
     override fun onBindViewHolder(holder: ElementsByCategoriesViewHolder, position: Int) {
-        val elementUi = elements[position]
-        holder.itemTitle.text = elementUi.element.nom
-        holder.itemComment.text = elementUi.comment
+        val elementCategory = elements[position]
+        holder.itemTitle.text = elementCategory.element.nom
+        holder.itemComment.text = elementCategory.comment
+        holder.coche.isChecked = elementCategory.coche
         holder.itemButton.setOnClickListener {
-            onElementClick(elementUi)
+            onElementClick(elementCategory)
         }
-
+        holder.coche.setOnCheckedChangeListener { _, isChecked ->
+            onChecked(elementCategory.copy(coche = isChecked))
+        }
     }
 }

@@ -13,8 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import fr.arthur.pakko.R
 import fr.arthur.pakko.adapters.ElementsByCategoriesAdapter
 import fr.arthur.pakko.models.Category
-import fr.arthur.pakko.models.ElementUi
-import fr.arthur.pakko.viewmodel.CategoryViewModel
+import fr.arthur.pakko.models.ElementCategory
 import fr.arthur.pakko.viewmodel.ElementViewModel
 import fr.arthur.pakko.views.bottomSheet.ModifyElementBottomSheet
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
@@ -27,7 +26,6 @@ class FragmentElementsByCategories : Fragment() {
     private lateinit var pageTitle: TextView
     private lateinit var category: Category
     private val elementViewModel: ElementViewModel by activityViewModel()
-    private val categoryViewModel: CategoryViewModel by activityViewModel()
 
 
     override fun onCreateView(
@@ -57,9 +55,12 @@ class FragmentElementsByCategories : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         adapter = ElementsByCategoriesAdapter(
-            onElementClick = { elementUi ->
+            onElementClick = { elementCategory ->
                 // afficher le popup de modification de l'élément
-                openModifyElementBottomSheet(elementUi)
+                openModifyElementBottomSheet(elementCategory)
+            },
+            onChecked = { elementCategory ->
+                elementViewModel.updateElementCategory(elementCategory)
             }
         )
 
@@ -73,16 +74,12 @@ class FragmentElementsByCategories : Fragment() {
             adapter.submitList(it.toList())
         }
 
-        categoryViewModel.elementCategoryModified.observe(viewLifecycleOwner) {
-            elementViewModel.getElementsForCategory(category.id)
-        }
-
-        elementViewModel.getElementsForCategory(category.id)
+        elementViewModel.getElementsByCategory(category)
     }
 
-    private fun openModifyElementBottomSheet(element: ElementUi) {
+    private fun openModifyElementBottomSheet(element: ElementCategory) {
         val bottomSheet = ModifyElementBottomSheet()
-        bottomSheet.elementUi = element
+        bottomSheet.elementCategory = element
         bottomSheet.category = category
         bottomSheet.show(parentFragmentManager, "ModifyElement")
     }

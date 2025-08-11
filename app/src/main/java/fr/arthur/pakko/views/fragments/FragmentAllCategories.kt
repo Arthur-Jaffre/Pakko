@@ -16,12 +16,12 @@ import fr.arthur.pakko.viewmodel.CategoryViewModel
 import fr.arthur.pakko.views.bottomSheet.UpsertCategoryBottomSheet
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
-class FragmentCategories : Fragment() {
+class FragmentAllCategories : Fragment() {
     private lateinit var rootView: View
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CategoriesAdapter
     private lateinit var addCategoryButton: ImageButton
-    private val categoryViewModel: CategoryViewModel by activityViewModel()
+    private val categoryViewModel: CategoryViewModel by activityViewModel() // Utilisation dans popup modification
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -38,7 +38,7 @@ class FragmentCategories : Fragment() {
         addCategoryButton = rootView.findViewById(R.id.add_category_button)
         addCategoryButton.setOnClickListener {
             val bottomSheet = UpsertCategoryBottomSheet()
-            bottomSheet.show(childFragmentManager, "UpsertCategory")
+            bottomSheet.show(parentFragmentManager, "UpsertCategory")
         }
     }
 
@@ -55,7 +55,7 @@ class FragmentCategories : Fragment() {
             }
         )
 
-        categoryViewModel.categories.observe(viewLifecycleOwner) {
+        categoryViewModel.allCategories.observe(viewLifecycleOwner) {
             adapter.submitList(it.toList())
         }
         categoryViewModel.getAllCategories()
@@ -73,7 +73,7 @@ class FragmentCategories : Fragment() {
     private fun openUpsertCategory(category: Category) {
         val bottomSheet = UpsertCategoryBottomSheet()
         bottomSheet.itemCategory = category
-        bottomSheet.show(childFragmentManager, "UpsertCategory")
+        bottomSheet.show(parentFragmentManager, "UpsertCategory")
     }
 
 }

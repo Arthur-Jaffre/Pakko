@@ -5,72 +5,20 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Transaction
 import androidx.room.Update
-import fr.arthur.pakko.room.entities.ElementCategorieEntityCrossRef
 import fr.arthur.pakko.room.entities.ElementEntity
-import fr.arthur.pakko.room.relations.ElementAvecInfosParCategorieRelation
 
 @Dao
 interface ElementDao {
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    suspend fun insert(element: ElementEntity)
-
-    @Delete
-    suspend fun delete(element: ElementEntity)
-
-    @Query("SELECT * FROM elements ORDER BY nom")
-    suspend fun getAll(): List<ElementEntity>
-
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    suspend fun insertCrossRefs(crossRefs: List<ElementCategorieEntityCrossRef>)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(element: ElementEntity)
 
     @Update
     suspend fun update(element: ElementEntity)
 
-    @Query(
-        """
-    SELECT e.* 
-    FROM elements e
-    INNER JOIN elements_categories ec 
-        ON ec.element_id = e.id
-    WHERE ec.categorie_id = :categoryId
-    """
-    )
-    suspend fun getElementsByCategory(categoryId: String): List<ElementEntity>
+    @Delete
+    suspend fun delete(element: ElementEntity)
 
-    @Query("DELETE FROM elements_categories WHERE element_id = :elementId")
-    suspend fun deleteAllElementCategories(elementId: String)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertOrUpdateCrossRef(crossRef: ElementCategorieEntityCrossRef)
-
-    @Transaction
-    suspend fun updateElementWithCategories(
-        element: ElementEntity,
-        selectedCategories: List<ElementCategorieEntityCrossRef>
-    ) {
-        // 1. Mise à jour de l'élément
-        update(element)
-        // 2. Suppression des liaisons existantes
-        deleteAllElementCategories(element.id)
-        // 3. Réinsertion des nouvelles liaisons
-        selectedCategories.forEach { categoryUi ->
-            insertOrUpdateCrossRef(categoryUi)
-        }
-    }
-
-    @Query(
-        """
-        SELECT e.id, e.nom, ec.commentaire, ec.coche
-        FROM elements AS e
-        INNER JOIN elements_categories AS ec
-            ON e.id = ec.element_id
-        WHERE ec.categorie_id = :categorieId
-    """
-    )
-    suspend fun getElementsForCategory(
-        categorieId: String
-    ): List<ElementAvecInfosParCategorieRelation>
-
+    @Query("SELECT * FROM elements ORDER BY nom ASC")
+    suspend fun getAll(): List<ElementEntity>
 }

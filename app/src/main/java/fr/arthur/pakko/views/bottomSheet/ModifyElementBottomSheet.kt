@@ -11,18 +11,17 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import fr.arthur.pakko.R
 import fr.arthur.pakko.models.Category
-import fr.arthur.pakko.models.ElementUi
-import fr.arthur.pakko.viewmodel.CategoryViewModel
-import fr.arthur.pakko.views.MainActivity
+import fr.arthur.pakko.models.ElementCategory
+import fr.arthur.pakko.viewmodel.ElementViewModel
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class ModifyElementBottomSheet : BottomSheetDialogFragment() {
     private lateinit var deleteButton: LinearLayout
     private lateinit var editButton: LinearLayout
     private lateinit var entryComment: EditText
-    lateinit var elementUi: ElementUi
+    lateinit var elementCategory: ElementCategory
     lateinit var category: Category
-    private val categoryViewModel: CategoryViewModel by activityViewModel()
+    private val elementViewModel: ElementViewModel by activityViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,11 +39,11 @@ class ModifyElementBottomSheet : BottomSheetDialogFragment() {
         deleteButton = view.findViewById(R.id.button_remove_element_from_category)
         editButton = view.findViewById(R.id.button_edit_element)
         entryComment = view.findViewById(R.id.entry_element_comment)
-        entryComment.setText(elementUi.comment)
+        entryComment.setText(elementCategory.comment)
 
         deleteButton.setOnClickListener {
             // supprimer l'élément de la catégorie
-            categoryViewModel.deleteElementCategoryCrossRef(elementUi.element, category)
+            elementViewModel.deleteElementFromCategory(elementCategory)
             Toast.makeText(
                 context,
                 getString(R.string.element_removed_from_category),
@@ -56,20 +55,16 @@ class ModifyElementBottomSheet : BottomSheetDialogFragment() {
         editButton.setOnClickListener {
             findNavController().navigate(
                 R.id.addElementFragment,
-                Bundle().apply { putSerializable("element", elementUi.element) }
+                Bundle().apply { putSerializable("element", elementCategory.element) }
             )
 
-            (activity as? MainActivity)?.highlightMenuItem(R.id.addElementFragment)
+//            (activity as? MainActivity)?.highlightMenuItem(R.id.addElementFragment)
             dismiss()
         }
 
         entryComment.setOnEditorActionListener { _, actionId, _ ->
             // modifier le commentaire de l'élément en fonction de sa catégorie
-            categoryViewModel.updateCrossRef(
-                elementUi.element,
-                category,
-                entryComment.text.toString()
-            )
+            elementViewModel.updateElementCategory(elementCategory.copy(comment = entryComment.text.toString()))
             dismiss()
             true
         }

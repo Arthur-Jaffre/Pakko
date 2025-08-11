@@ -1,13 +1,11 @@
 package fr.arthur.pakko.utils
 
-import fr.arthur.pakko.models.CategorieUi
 import fr.arthur.pakko.models.Category
 import fr.arthur.pakko.models.Element
-import fr.arthur.pakko.models.ElementUi
+import fr.arthur.pakko.models.ElementCategory
 import fr.arthur.pakko.room.entities.CategorieEntity
 import fr.arthur.pakko.room.entities.ElementCategorieEntityCrossRef
 import fr.arthur.pakko.room.entities.ElementEntity
-import fr.arthur.pakko.room.relations.ElementAvecInfosParCategorieRelation
 
 fun CategorieEntity.toCategory(): Category {
     return Category(
@@ -37,18 +35,22 @@ fun Element.toElementEntity(): ElementEntity {
     )
 }
 
-fun CategorieUi.toElementCategorieEntityCrossRef(elementId: String): ElementCategorieEntityCrossRef {
+fun ElementCategory.toElementCategorieCrossRef(): ElementCategorieEntityCrossRef {
     return ElementCategorieEntityCrossRef(
-        element_id = elementId,
+        element_id = element.id,
         categorie_id = category.id,
         commentaire = comment,
         coche = coche
     )
 }
 
-fun ElementAvecInfosParCategorieRelation.toElementUi(): ElementUi {
-    return ElementUi(
-        element = element.toElement(),
+fun ElementCategorieEntityCrossRef.toElementCategory(
+    element: Element,
+    category: Category
+): ElementCategory {
+    return ElementCategory(
+        element = element,
+        category = category,
         comment = commentaire,
         coche = coche
     )
