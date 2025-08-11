@@ -46,6 +46,10 @@ class ElementCategoryUseCase(
         return elementCategoryRepository.getCategoriesByElement(element)
     }
 
+    suspend fun getElementsWitchAreNotInCategory(category: Category): List<Element> {
+        return elementCategoryRepository.getElementsWitchAreNotInCategory(category)
+    }
+
     suspend fun deleteAllElementFromCategory(category: Category) {
         elementCategoryRepository.deleteAllElementFromCategory(category)
     }

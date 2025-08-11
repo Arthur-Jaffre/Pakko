@@ -36,4 +36,7 @@ interface ElementCategorieDao {
     @Query("DELETE FROM elements_categories WHERE categorie_id = :categorieId")
     suspend fun deleteAllElementFromCategory(categorieId: String)
 
+    @Query("SELECT e.* FROM elements e LEFT JOIN elements_categories ec ON e.id = ec.element_id AND ec.categorie_id = :categorieId WHERE ec.element_id IS NULL")
+    suspend fun getElementsNotInCategory(categorieId: String): List<ElementEntity>
+
 }

@@ -49,6 +49,11 @@ class ElementCategoryRepository(
             }.sortedBy { it.category.nom }
     }
 
+    suspend fun getElementsWitchAreNotInCategory(category: Category): List<Element> {
+        return elementCategorieDao.getElementsNotInCategory(category.id)
+            .map { it.toElement() }.sortedBy { it.nom }
+    }
+
     suspend fun deleteAllElementFromCategory(category: Category) {
         elementCategorieDao.deleteAllElementFromCategory(category.id)
     }

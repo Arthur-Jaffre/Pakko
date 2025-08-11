@@ -20,6 +20,8 @@ class ElementViewModel(
 
     private val _elementsByCategory = MutableLiveData<List<ElementCategory>>()
     val elementsByCategory: LiveData<List<ElementCategory>> = _elementsByCategory
+    private val _elementsNotInCategory = MutableLiveData<List<Element>>()
+    val elementsNotInCategory: LiveData<List<Element>> = _elementsNotInCategory
 
     fun getAllElements() {
         viewModelScope.launch {
@@ -34,6 +36,13 @@ class ElementViewModel(
     fun getElementsByCategory(category: Category) {
         viewModelScope.launch {
             _elementsByCategory.value = elementCategoryUseCase.getElementsByCategory(category)
+        }
+    }
+
+    fun getElementsNotInCategory(category: Category) {
+        viewModelScope.launch {
+            _elementsNotInCategory.value =
+                elementCategoryUseCase.getElementsWitchAreNotInCategory(category)
         }
     }
 
