@@ -54,5 +54,10 @@ class ElementsByCategoriesAdapter(
             onChecked(elementCategory.copy(coche = holder.coche.isChecked))
         }
 
+        holder.itemView.setOnLongClickListener {
+            onElementClick(elementCategory)
+            true
+        }
+
     }
 }

@@ -14,6 +14,7 @@ import fr.arthur.pakko.R
 import fr.arthur.pakko.adapters.ElementsSelectAdapter
 import fr.arthur.pakko.models.Category
 import fr.arthur.pakko.models.Element
+import fr.arthur.pakko.models.ElementCategory
 import fr.arthur.pakko.utils.formatText
 import fr.arthur.pakko.viewmodel.ElementViewModel
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
@@ -39,7 +40,8 @@ class CreateElementBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun onElementClicked(element: Element) {
-        elementViewModel.addElementByCategory(element, currentCategory)
+//        elementViewModel.addElementByCategory(element, currentCategory)
+        elementViewModel.addCategoryToElement(ElementCategory(element, currentCategory))
         Toast.makeText(context, getString(R.string.element_saved), Toast.LENGTH_SHORT).show()
         dismiss()
     }
