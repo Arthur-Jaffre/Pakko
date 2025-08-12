@@ -11,8 +11,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import fr.arthur.pakko.R
 import fr.arthur.pakko.usecase.ImportExportUseCase
 import fr.arthur.pakko.utils.ImportExportHandler
-import fr.arthur.pakko.utils.MenuHandler
 import fr.arthur.pakko.utils.appModule
+import fr.arthur.pakko.views.navigation.MenuHandler
 import fr.arthur.pakko.views.navigation.NavigationHandler
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext.startKoin
