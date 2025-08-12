@@ -2,6 +2,7 @@ package fr.arthur.pakko.room.entities
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import java.io.Serializable
 
 @Entity(
     tableName = "elements_categories",
@@ -26,4 +27,4 @@ data class ElementCategorieEntityCrossRef(
     val categorie_id: String,
     val commentaire: String?,
     val coche: Boolean
-)
+) : Serializable

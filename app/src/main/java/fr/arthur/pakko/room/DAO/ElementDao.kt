@@ -21,4 +21,8 @@ interface ElementDao {
 
     @Query("SELECT * FROM elements ORDER BY nom ASC")
     suspend fun getAll(): List<ElementEntity>
+
+    @Query("SELECT * FROM elements WHERE id = :id")
+    suspend fun getElementById(id: String): ElementEntity?
+
 }

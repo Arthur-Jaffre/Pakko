@@ -24,4 +24,6 @@
     <string name="category_name_already_used">Nom de catégorie déjà utilisé.</string>
     <string name="element_saved">Élement enregistré</string>
     <string name="element_removed_from_category">L\'élément a été supprimé de la catégorie.</string>
+    <string name="action_import">Importer</string>
+    <string name="action_export">Exporter</string>
 </resources>

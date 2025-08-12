@@ -21,4 +21,8 @@ interface CategorieDao {
 
     @Query("SELECT * FROM categories ORDER BY nom ASC")
     suspend fun getAll(): List<CategorieEntity>
+
+    @Query("SELECT * FROM categories WHERE id = :id")
+    suspend fun getCategorieById(id: String): CategorieEntity?
+
 }
