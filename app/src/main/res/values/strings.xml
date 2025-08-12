@@ -26,4 +26,6 @@
     <string name="element_removed_from_category">L\'élément a été supprimé de la catégorie.</string>
     <string name="action_import">Importer</string>
     <string name="action_export">Exporter</string>
+    <string name="import_ok">Import réussi</string>
+    <string name="export_ok">Export réussi</string>
 </resources>
