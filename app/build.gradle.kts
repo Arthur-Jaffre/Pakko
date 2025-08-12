@@ -50,6 +50,7 @@ dependencies {
     // implementation(libs.koin.androidx.fragment)
     // implementation(libs.koin.androidx.viewmodel)
     implementation(libs.koin.android)
+    implementation(libs.gson)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

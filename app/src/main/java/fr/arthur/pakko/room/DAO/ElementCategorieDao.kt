@@ -21,6 +21,9 @@ interface ElementCategorieDao {
     @Delete
     suspend fun delete(elementCategorie: ElementCategorieEntityCrossRef)
 
+    @Query("SELECT * FROM elements_categories")
+    suspend fun getAll(): List<ElementCategorieEntityCrossRef>
+
     @Query("SELECT * FROM elements_categories WHERE element_id = :elementId AND categorie_id = :categorieId")
     suspend fun getByElementAndCategorie(
         elementId: String,
