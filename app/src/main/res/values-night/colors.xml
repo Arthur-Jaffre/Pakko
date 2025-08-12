@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#DDDFE1</color>
+    <color name="white">#FF000000</color>
+    <color name="item_menu_select">#90AECB</color>
+    <color name="gray">#EAEDF1</color>
+    <color name="normal_gray">#88A4C0</color>
+
+    <color name="main_background">#101A23</color>
+
+    <color name="menu_color">#182734</color>
+    <color name="shadow_color">#1D2F3F</color>
+
+    <color name="popup_background">#101A23</color>
+    <color name="background_category_item">#182734</color>
+    <color name="border_category_item">#2F4A64</color>
+    <color name="background_entries">#223649</color>
+    <color name="text_button">@color/white</color>
+    <color name="button_background">#92B0CF</color>
+
+
+</resources>

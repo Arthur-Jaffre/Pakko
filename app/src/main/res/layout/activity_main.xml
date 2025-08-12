@@ -27,7 +27,8 @@
         android:scaleType="fitCenter"
         android:src="@drawable/ic_menu"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/black" />
 
 
     <androidx.fragment.app.FragmentContainerView

@@ -12,7 +12,7 @@ import fr.arthur.pakko.R
 import fr.arthur.pakko.usecase.ImportExportUseCase
 import fr.arthur.pakko.utils.ImportExportHandler
 import fr.arthur.pakko.utils.appModule
-import fr.arthur.pakko.views.navigation.MenuHandler
+import fr.arthur.pakko.views.navigation.MenuImportHandler
 import fr.arthur.pakko.views.navigation.NavigationHandler
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext.startKoin
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     private val useCase: ImportExportUseCase by inject(ImportExportUseCase::class.java)
 
     private lateinit var importExportHandler: ImportExportHandler
-    private lateinit var menuHandler: MenuHandler
+    private lateinit var menuImportHandler: MenuImportHandler
     private lateinit var navigationHandler: NavigationHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,8 +44,8 @@ class MainActivity : AppCompatActivity() {
         observeNavigationChanges()
 
         importExportHandler = ImportExportHandler(this, useCase)
-        menuHandler = MenuHandler(menuButton, importExportHandler)
-        menuHandler.setupMenu()
+        menuImportHandler = MenuImportHandler(menuButton, importExportHandler)
+        menuImportHandler.setupMenu()
     }
 
     private fun startDependencyInjection() {

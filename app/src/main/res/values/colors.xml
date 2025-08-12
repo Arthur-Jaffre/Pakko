@@ -4,12 +4,15 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="main_background">#F9FAFB</color>
+    <color name="background_category_item">@color/main_background</color>
     <color name="menu_color">#F9FAFB</color>
-    <color name="light_gray">#72869A</color>
+    <color name="item_menu_select">#72869A</color>
     <color name="shadow_color">#ECEEF0</color>
-    <color name="dark_white">#D5DDE3</color>
+    <color name="border_category_item">#D5DDE3</color>
     <color name="button_background">#DCE8F3</color>
     <color name="gray">#EAEDF1</color>
+    <color name="background_entries">#EAEDF1</color>
+    <color name="text_button">@color/black</color>
     <color name="popup_background">#F8FAFC</color>
     <color name="normal_gray">#B5B5B5</color>
 </resources>

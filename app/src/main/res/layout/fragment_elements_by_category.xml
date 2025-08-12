@@ -14,7 +14,8 @@
         android:src="@drawable/ic_arrow_left"
         app:layout_constraintBottom_toTopOf="@+id/recycler_view_category"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/black" />
 
     <TextView
         android:id="@+id/title_element"
@@ -27,6 +28,7 @@
         android:paddingStart="0dp"
         android:paddingEnd="30dp"
         android:text="@string/element"
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/return_button"

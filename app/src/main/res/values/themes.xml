@@ -7,6 +7,11 @@
 
     <style name="Theme.Pakko" parent="Base.Theme.Pakko" />
 
+    <style name="CustomImportMenu" parent="Widget.MaterialComponents.PopupMenu">
+        <item name="android:background">@color/menu_color</item>
+        <item name="android:popupBackground">@color/menu_color</item>
+    </style>
+
     <style name="CustomNavigationViewStyle" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="itemBackground">@android:color/transparent</item>
         <item name="android:background">@color/menu_color</item>
@@ -16,6 +21,7 @@
     <style name="CustomButton" parent="Widget.Material3.Button">
         <item name="backgroundTint">@null</item>
         <item name="android:background">@drawable/button_background</item>
+        <item name="android:textColor">@color/text_button</item>
         <item name="cornerRadius">8dp</item>
     </style>
 
