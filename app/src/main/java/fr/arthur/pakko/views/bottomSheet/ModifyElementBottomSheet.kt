@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -19,6 +20,7 @@ import org.koin.androidx.viewmodel.ext.android.activityViewModel
 class ModifyElementBottomSheet : BottomSheetDialogFragment() {
     private lateinit var deleteButton: LinearLayout
     private lateinit var editButton: LinearLayout
+    private lateinit var title: TextView
     private lateinit var entryComment: EditText
     lateinit var elementCategory: ElementCategory
     lateinit var category: Category
@@ -39,6 +41,8 @@ class ModifyElementBottomSheet : BottomSheetDialogFragment() {
     private fun initComponent(view: View) {
         deleteButton = view.findViewById(R.id.button_remove_element_from_category)
         editButton = view.findViewById(R.id.button_edit_element)
+        title = view.findViewById(R.id.element_title)
+        title.text = elementCategory.element.nom
         entryComment = view.findViewById(R.id.entry_element_comment)
         entryComment.setText(elementCategory.comment)
 

@@ -10,6 +10,9 @@ import fr.arthur.pakko.usecase.ImportExportUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class ImportExportHandler(
     private val activity: AppCompatActivity,
@@ -51,7 +54,14 @@ class ImportExportHandler(
     }
 
     fun createJsonFile() {
-        exportJsonLauncher.launch("export_${System.currentTimeMillis()}.json")
+        exportJsonLauncher.launch(
+            "export_${
+                SimpleDateFormat(
+                    "yyyyMMdd_HHmmss_SSS",
+                    Locale.getDefault()
+                ).format(Date())
+            }.json"
+        )
     }
 
     private suspend fun readTextFromUri(uri: Uri): String = withContext(Dispatchers.IO) {
